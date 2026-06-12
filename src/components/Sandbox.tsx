@@ -11,11 +11,17 @@ import {
   Inbox, 
   FileText, 
   ShieldCheck, 
-  Workflow
+  Workflow,
+  Mail
 } from 'lucide-react';
+import { Task, UserProfile } from '../types';
+import { EmailSummaryModal } from './EmailSummaryModal';
 
 export interface SandboxProps {
   onBack: () => void;
+  currentUser: UserProfile;
+  profiles: UserProfile[];
+  tasks: Task[];
   corporateSystems: any[];
   setCorporateSystems: React.Dispatch<React.SetStateAction<any[]>>;
   activeSimulatedSystemId: string;
@@ -45,6 +51,9 @@ export interface SandboxProps {
 export const Sandbox: React.FC<SandboxProps> = (props) => {
   const {
     onBack,
+    currentUser,
+    profiles,
+    tasks,
     corporateSystems,
     activeSimulatedSystemId,
     setActiveSimulatedSystemId,
@@ -67,6 +76,20 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
     setNewSysTheme,
     handleOnboardSystem
   } = props;
+
+  const [showEmailModal, setShowEmailModal] = React.useState(false);
+  const [selectedRecipientId, setSelectedRecipientId] = React.useState(currentUser.id);
+
+  const selectedRecipient = profiles.find(p => p.id === selectedRecipientId) || currentUser;
+  const manager = profiles.find(p => p.id === selectedRecipient.managerId) || null;
+
+  const handleTriggerSimulate = () => {
+    handleSimulateWebhookPush();
+    // After simulation, show the email summary modal as requested
+    setTimeout(() => {
+      setShowEmailModal(true);
+    }, 1200);
+  };
 
   return (
     <section className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6 animate-fadeIn pb-16">
@@ -206,7 +229,19 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
               </div>
               <div className="space-y-3.5 text-xs">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">第一步：选择用于派发的对接事件源系统</label>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">第一步：选择目标接收人 (Recipient)</label>
+                  <select
+                    value={selectedRecipientId}
+                    onChange={(e) => setSelectedRecipientId(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 focus:outline-none font-extrabold cursor-pointer text-xs mb-3"
+                  >
+                    {profiles.map(p => (
+                      <option key={p.id} value={p.id}>👤 {p.fullName}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">第二步：选择用于派发的对接事件源系统</label>
                   <select
                     value={activeSimulatedSystemId}
                     onChange={(e) => setActiveSimulatedSystemId(e.target.value)}
@@ -230,7 +265,7 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
                   />
                 </div>
                 <button
-                  onClick={handleSimulateWebhookPush}
+                  onClick={handleTriggerSimulate}
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
@@ -256,6 +291,14 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
           </div>
         </div>
       </div>
+
+      <EmailSummaryModal 
+        isOpen={showEmailModal}
+        onClose={() => setShowEmailModal(false)}
+        recipient={selectedRecipient}
+        sender={manager}
+        tasks={tasks}
+      />
     </section>
   );
 };

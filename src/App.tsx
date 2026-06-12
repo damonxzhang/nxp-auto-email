@@ -34,6 +34,7 @@ import { Sandbox } from './components/Sandbox';
 import { Dashboard } from './components/Dashboard';
 import { TaskTable } from './components/TaskTable';
 import { TaskDetailsModal } from './components/TaskDetailsModal';
+import { EmailSummaryModal } from './components/EmailSummaryModal';
 
 const COLOR_THEMES: Record<string, { bg: string; color: string; border: string }> = {
   indigo: { bg: 'bg-indigo-50', color: 'text-indigo-600', border: 'border-indigo-100' },
@@ -91,6 +92,8 @@ export default function App() {
   const [subHideEmptySystems, setSubHideEmptySystems] = useState(true);
   const [hideEmptySystems, setHideEmptySystems] = useState(true);
   const [activeSystemMenu, setActiveSystemMenu] = useState<{ userId: string; systemId: string } | null>(null);
+  
+  const [urgentRecipient, setUrgentRecipient] = useState<UserProfile | null>(null);
 
   const triggerToast = (message: string) => {
     const id = Date.now();
@@ -291,6 +294,9 @@ export default function App() {
         {activeView === 'sandbox' ? (
           <Sandbox 
             onBack={() => setActiveView('dashboard')}
+            currentUser={currentUser}
+            profiles={profiles}
+            tasks={tasks}
             corporateSystems={corporateSystems}
             setCorporateSystems={setCorporateSystems}
             activeSimulatedSystemId={activeSimulatedSystemId}
@@ -345,6 +351,7 @@ export default function App() {
               toggleUserVacation={toggleUserVacation}
               getIconComponent={getIconComponent}
               triggerToast={triggerToast}
+              onUrgentReminder={setUrgentRecipient}
             />
 
             <div id="central-todo-table" className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 pb-20 animate-fadeIn">
@@ -360,7 +367,6 @@ export default function App() {
                         {filteredTasks.length} ITEMS
                       </span>
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">自动汇聚自 2代分析/物料报废/buyoff 等异构芯片 Fab 业务系统</p>
                   </div>
                 </div>
 
@@ -412,6 +418,18 @@ export default function App() {
             onClose={() => setSelectedTask(null)}
             onToggleStep={handleToggleStep}
             onCompleteTask={handleCompleteTask}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {urgentRecipient && (
+          <EmailSummaryModal 
+            isOpen={!!urgentRecipient}
+            onClose={() => setUrgentRecipient(null)}
+            recipient={urgentRecipient}
+            sender={profiles.find(p => p.id === urgentRecipient.managerId) || currentUser}
+            tasks={tasks}
           />
         )}
       </AnimatePresence>

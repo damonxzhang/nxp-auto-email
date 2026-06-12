@@ -29,6 +29,7 @@ export interface DashboardProps {
   toggleUserVacation: (userId: string) => void;
   getIconComponent: (icon: string) => any;
   triggerToast: (msg: string) => void;
+  onUrgentReminder: (user: UserProfile) => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = (props) => {
@@ -58,25 +59,14 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     renderSystemPopover,
     toggleUserVacation,
     getIconComponent,
-    triggerToast
+    triggerToast,
+    onUrgentReminder
   } = props;
 
   return (
     <section className="max-w-[1500px] mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6 animate-fadeIn pb-16">
       <div className="bg-white border-b border-slate-200/80 py-5 px-4 sm:px-6 shadow-2xs rounded-2xl mb-4">
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5 text-left">
-            <div className="p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-600 shrink-0">
-              <User className="w-5.5 h-5.5 animate-pulse" />
-            </div>
-            <div>
-              <div className="text-[11px] text-indigo-500 font-extrabold uppercase tracking-widest leading-none">企业单点登录已连通：</div>
-              <div className="text-sm font-black text-slate-900 mt-1 flex items-center gap-2">
-                <span>当前正作为 <span className="text-indigo-600 underline underline-offset-4">{currentUser.fullName}</span> 登录</span>
-              </div>
-            </div>
-          </div>
-          
           <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200/60 shadow-inner">
              <button
                onClick={() => setDashboardTab('analytics')}
@@ -246,7 +236,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
-                            triggerToast(`已向【${sub.name}】发送实时督办提醒`);
+                            onUrgentReminder(sub);
                           }}
                           className="w-full py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 text-[10px] font-black rounded-xl border border-slate-200 transition cursor-pointer"
                         >
