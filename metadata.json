@@ -1,0 +1,6 @@
+{
+  "name": "待办自动化运营中心",
+  "description": "整合企业邮件、通知、告警、审批与工单的统一工作入口。提供今日工作台、任务看板、业务自动分类与派发，以及管理驾驶舱的多维度监控分析看板。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
