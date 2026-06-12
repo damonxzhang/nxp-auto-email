@@ -14,8 +14,8 @@ import {
   Settings2, 
   ExternalLink,
   ChevronRight,
-  FileText,
-  Workflow
+  Workflow,
+  Mail
 } from 'lucide-react';
 import { Task } from '../types';
 
@@ -34,6 +34,30 @@ export const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
 }) => {
   const isCompleted = task.status === 'completed';
   
+  const renderDescriptionWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+    
+    return parts.map((part, index) => {
+      if (urlRegex.test(part)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-600 hover:text-indigo-500 underline underline-offset-4 inline-flex items-center gap-0.5 font-bold mx-1"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       <div 
@@ -94,23 +118,79 @@ export const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
 
            <div className="space-y-3">
               <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                 <FileText className="w-4 h-4" /> 背景与研判摘要
+                 <Mail className="w-4 h-4" /> 邮件详情
               </h4>
              <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 relative overflow-hidden group">
                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                  <Cpu className="w-12 h-12 text-slate-900" />
                </div>
-               <p className="text-xs leading-relaxed text-slate-700 relative z-10 white-space-pre-wrap">{task.description}</p>
+               <p className="text-xs leading-relaxed text-slate-700 relative z-10 white-space-pre-wrap">
+                 {renderDescriptionWithLinks(task.description)}
+               </p>
                {task.urgencyExplanation && (
                  <div className="mt-4 pt-4 border-t border-slate-200/50 flex items-start gap-3">
                     <div className="p-1 bg-amber-50 rounded text-amber-600 shrink-0">
                       <Clock className="w-3.5 h-3.5" />
                     </div>
-                    <p className="text-[10px] font-bold text-amber-705 leading-relaxed">{task.urgencyExplanation}</p>
+                    <p className="text-[10px] font-bold text-amber-700 leading-relaxed">{task.urgencyExplanation}</p>
                  </div>
                )}
              </div>
            </div>
+
+           {task.workflow && (
+             <div className="space-y-4">
+               <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                  <Filter className="w-4 h-4" /> {task.workflow.systemName} - 节点轨迹与处理状态
+               </h4>
+               <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-2xs">
+                 <div className="relative">
+                   <div className="absolute left-[11px] top-4 bottom-4 w-0.5 bg-slate-100 z-0" />
+                   <div className="space-y-6 relative z-10">
+                     {task.workflow.steps.map((step) => {
+                       const isCurrent = step.index === task.workflow?.currentStepIndex;
+                       const isPast = (task.workflow?.currentStepIndex || 0) > step.index;
+                       
+                       return (
+                         <div key={step.index} className="flex gap-4">
+                           <div className="shrink-0 flex flex-col items-center">
+                             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] font-black transition-all ${
+                               isCurrent 
+                                 ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100 scale-110' 
+                                 : isPast 
+                                   ? 'bg-emerald-500 border-emerald-500 text-white' 
+                                   : 'bg-white border-slate-200 text-slate-400'
+                             }`}>
+                               {isPast ? <Check className="w-3 h-3" /> : step.index}
+                             </div>
+                           </div>
+                           
+                           <div className="flex-1 min-w-0">
+                             <div className="flex items-center justify-between gap-2">
+                               <span className={`text-[11px] font-black truncate ${
+                                 isCurrent ? 'text-indigo-600' : isPast ? 'text-emerald-700' : 'text-slate-500'
+                               }`}>
+                                 {step.name}
+                               </span>
+                               {isCurrent && (
+                                 <span className="shrink-0 bg-indigo-50 text-indigo-600 text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter">当前节点</span>
+                               )}
+                             </div>
+                             <div className="flex items-center gap-1.5 mt-0.5">
+                               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">处理人:</span>
+                               <span className={`text-[10px] font-black ${isCurrent ? 'text-slate-900' : 'text-slate-500'}`}>
+                                 {step.handler}
+                               </span>
+                             </div>
+                           </div>
+                         </div>
+                       );
+                     })}
+                   </div>
+                 </div>
+               </div>
+             </div>
+           )}
 
            <div className="space-y-4">
               <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">

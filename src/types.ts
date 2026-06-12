@@ -17,6 +17,12 @@ export interface ActionStep {
   completed: boolean;
 }
 
+export interface WorkflowStep {
+  index: number;
+  name: string;
+  handler: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -30,6 +36,11 @@ export interface Task {
   urgencyExplanation?: string;
   actionSteps: ActionStep[];
   assignee: string;
+  workflow?: {
+    systemName: string;
+    currentStepIndex: number;
+    steps: WorkflowStep[];
+  };
 }
 
 export interface IncomingMessage {

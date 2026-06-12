@@ -8,142 +8,16 @@ export const DEFAULT_PROFILES: UserProfile[] = [
 ];
 
 export const CORPORATE_SYSTEMS = [
-  { id: 'MES系统', name: 'MES系统 (先进制程调度)', icon: 'Cpu', theme: 'indigo', description: '微米及纳米级高精度生产排程流片控制与加急工艺加塞调度系统' },
-  { id: 'OA系统', name: 'OA系统 (日常行政审批)', icon: 'Inbox', theme: 'purple', description: '日常商务款额审批、进口机台稼动小时申报、外协采购及款批签单' },
-  { id: 'WMS系统', name: 'WMS系统 (高危危化仓储)', icon: 'Box', theme: 'emerald', description: '剧毒高氟酸、低温敏感光刻胶等高敏危化物资消耗申报与闭环监管' },
-  { id: 'EAP系统', name: 'EAP系统 (装备自愈控制)', icon: 'RefreshCw', theme: 'rose', description: 'ASML曝光机微压自锁拦截、气动连锁触发、SECS/GEM主控制总阀微调系统' },
-  { id: 'SPC系统', name: 'SPC系统 (制程质量看板)', icon: 'TrendingUp', theme: 'amber', description: '高负荷硅片膜厚分析仪、线宽CD超差拦截与SPC图表偏差限制' },
-  { id: '异常物料处理系统', name: '异常物料处理系统', icon: 'AlertTriangle', theme: 'rose', description: '先进制程晶圆缺陷与异常物料追溯拦截、MRB节点控制与审签判定' },
   { id: '异常处理系统-Others', name: '异常处理系统-Others', icon: 'HelpCircle', theme: 'amber', description: '厂务二次配管、气室动力、水电气运行环境辅助非标站点异常应急与自愈校验' },
   { id: '查询录像审批流程', name: '查询录像审批流程', icon: 'Video', theme: 'sky', description: '洁净操作车间、高精ASML曝光区物理监控视频授权调阅与安全凭证流程审批' },
   { id: '借还机申请', name: '借还机申请', icon: 'RefreshCw', theme: 'indigo', description: '高精密量测探仪、装配机件及厂务备品零配件短期调借、流转借还结算' },
   { id: 'buyoff流程', name: 'buyoff流程', icon: 'ShieldCheck', theme: 'emerald', description: '机台复产/大修后产品质量批复流程、失控规则在控校验良率释放判定' },
   { id: '2代分析系统', name: '2代分析系统', icon: 'Cpu', theme: 'purple', description: '失效分析(FA)、KLA电镜高维切片精密检测监控良率高维矩阵诊断' },
   { id: '物料报废', name: '物料报废', icon: 'Trash2', theme: 'teal', description: '高危化学物资、失效特种敏感耗料EHS环保等保合规离线销账安全报废申报' },
-  { id: '自由弹夹领用', name: '自由弹夹领用', icon: 'Box', theme: 'indigo', description: 'FOUP晶圆密封隔离传送盒、极净容器自由周转领用去向登记追踪' },
+  { id: '自由弹夹领用', name: '自由弹夹领用', icon: 'Box', theme: 'indigo', description: 'FOUP晶圆密封隔离传送盒、极净容器自由周转领用去向登记追踪' }
 ];
 
 export const DEFAULT_TASKS: Task[] = [
-  {
-    id: 'task-lm-1',
-    title: '新加坡Fabless高端车载SoC芯片追加首批3.5万片晶圆流片容量协调',
-    description: '大客户追加车载高端流片工单并要求12nm制程特急加塞流转，需独占光刻高精密对准线。BD经理李明需协调洁净室产能并向工艺班组呈报核可。',
-    category: '订单协调',
-    status: 'pending',
-    priority: 'high',
-    sourceSystem: 'MES系统',
-    dueDate: '2026-06-10',
-    createdDate: '2026-06-09',
-    assignee: 'BD经理 - 李明',
-    urgencyExplanation: '车载芯片关系重大整车订单交付保障与全年晶圆线稼动率指标，定为高急Hot Run。',
-    actionSteps: [
-      { id: 'lm1-1', text: '登录异常物料处理系统，评估下月高精度曝光与刻蚀多层 slots 空闲量', completed: true },
-      { id: 'lm1-2', text: '在物料控制排程中将该批次晶圆(Wafer Lot)设定为超高优特运行序列', completed: false },
-      { id: 'lm1-3', text: '与新加坡大客户技术组对接曝光干涉套刻精度补偿甘特图细节', completed: false }
-    ]
-  },
-  {
-    id: 'task-lm-2',
-    title: 'ASML 浸没式 DUV 双工件台光刻机原厂零配件精密维保款项呈批案',
-    description: '设备维保单号#FAB-7402：ASML先进光刻机（Twinscan NXT）由于连续运作套刻精度产生轻微漂移，需原厂高精密零件干涉仪和光学单元精密维护扣备，费用款额 9.8 万元，需部门签章。',
-    category: '物料采购',
-    status: 'pending',
-    priority: 'medium',
-    sourceSystem: 'OA系统',
-    dueDate: '2026-06-13',
-    createdDate: '2026-06-11',
-    assignee: 'BD经理 - 李明',
-    urgencyExplanation: '保障光刻段不发生重大硅片失常或精度故障导致线体停机，属于设备高优维护。',
-    actionSteps: [
-      { id: 'lm2-1', text: '向工厂副总报告维保需求并加盖部门预算外加急备用款审签单', completed: false },
-      { id: 'lm2-2', text: '与ASML深圳或上海客服工程师就流转光路及镜桶除微尘工序对齐交期', completed: false }
-    ]
-  },
-  {
-    id: 'task-zj-1',
-    title: '高密度车间ASML曝光段硅片加塞流片工艺会签案',
-    description: '曝光间加温加敏对准气力补偿案：由于车载芯片加急投片高负荷导致涂布环境气能波动，需通过MES及OA系统加急会签首期氮气与二氧化氮阀门压力调整，核准温湿度连锁释放。',
-    category: '订单协调',
-    status: 'pending',
-    priority: 'high',
-    sourceSystem: 'MES系统',
-    dueDate: '2026-06-12',
-    createdDate: '2026-06-11',
-    assignee: '后线工程师 - 张静',
-    urgencyExplanation: '属于特急生产红线特耗，一旦断供将导致千万元级别涂布原料报废，张静需与李明联合签署。',
-    actionSteps: [
-      { id: 'zj1-1', text: '确认高超额度辅助环境和气体配管的用资水位', completed: true },
-      { id: 'zj1-2', text: '协同李明，针对厂务非标站点二级配管进行泄压气阀联动状态测通', completed: false }
-    ]
-  },
-  {
-    id: 'task-zj-2',
-    title: '低敏光刻胶低温冷链专用恒敏氮气大额付款应急追加',
-    description: '原装昭和电工超纯气体采购审批：特种配管消耗指标突破上限，需进入WMS系统做大额资金调拨申请（25万元），从而紧急追加配用气罐以解高超CD形变隐患。',
-    category: '大额审批',
-    status: 'pending',
-    priority: 'high',
-    sourceSystem: 'WMS系统',
-    dueDate: '2026-06-11',
-    createdDate: '2026-06-11',
-    assignee: '后线工程师 - 张静',
-    urgencyExplanation: '原料供应商信用保障，需张静进入高密终端调取报退账COA并直接强制录调销账。',
-    actionSteps: [
-      { id: 'zj2-1', text: '调取到港特种气体仓库扫码信息、分析出入库台账', completed: false },
-      { id: 'zj2-2', text: '与财务外汇付讫底账做差异核准并线上对账销项', completed: false }
-    ]
-  },
-  {
-    id: 'task-zj-4',
-    title: '晶圆Wafer#3202曝光对准超阈值形变硬拦截与异常放行鉴定',
-    description: '由于洁净间换气震荡，首批3202槽位发生了0.02nm微区位移漂移。需在“异常物料处理系统”下发MRB阻断，并进行专家人工干涉比对，确定套刻修正补偿参数后方可恢复过站。',
-    category: '故障警报',
-    status: 'pending',
-    priority: 'high',
-    sourceSystem: '异常物料处理系统',
-    dueDate: '2026-06-12',
-    createdDate: '2026-06-11',
-    assignee: '后线工程师 - 张静',
-    urgencyExplanation: '高优批次，处于热流生产卡点。',
-    actionSteps: [
-      { id: 'zj4-1', text: '进入缺陷定位图库，拉取形变测定红线范围', completed: true },
-      { id: 'zj4-2', text: '调用ASML补偿软件做离线形变模拟回归并在异常系统签批放行', completed: false }
-    ]
-  },
-  {
-    id: 'task-zl-1',
-    title: 'EAP自愈协议闪断告警 - ASML#03机台SecsGem证书失效',
-    description: '自动监控中心发现03号机台由于网络抖动引发协议证书握手失败，导致生产配方无法自动下发。赵磊需进入系统手动重新导入安全令牌并校验连通性。',
-    category: '故障警报',
-    status: 'pending',
-    priority: 'high',
-    sourceSystem: 'EAP系统',
-    dueDate: '2026-06-11',
-    createdDate: '2026-06-11',
-    assignee: '后线工程师 - 赵磊',
-    urgencyExplanation: '证书失效会导致全线机台锁定，必须立即处理。',
-    actionSteps: [
-      { id: 'zl1-1', text: '重置机台EAP网关进程', completed: true },
-      { id: 'zl1-2', text: '在EAP证书管理中心重新下发由ASML原厂核审的RSA令牌', completed: false }
-    ]
-  },
-  {
-    id: 'task-wf-1',
-    title: 'EHS剧毒氟氢酸刻蚀间气阀异常排查与合规自检',
-    description: '季度环境安全自查：检测到高危物料仓储区3号传感器水位波动，王芳需核实是否存在微量泄露风险，并填写安信合规日志归档。',
-    category: '安全合规',
-    status: 'pending',
-    priority: 'medium',
-    sourceSystem: 'WMS系统',
-    dueDate: '2026-06-15',
-    createdDate: '2026-06-11',
-    assignee: '后线工程师 - 王芳',
-    urgencyExplanation: '合规性检查，预防性维护。',
-    actionSteps: [
-      { id: 'wf1-1', text: '调取传感器过去24小时运行图表', completed: false },
-      { id: 'wf1-2', text: '实地录像查核阀门气闭状态', completed: false }
-    ]
-  },
   {
     id: 'task-wf-2',
     title: '洁净操作车间视频调阅与轨迹溯源审批',
@@ -159,37 +33,312 @@ export const DEFAULT_TASKS: Task[] = [
     actionSteps: [
        { id: 'wf2-1', text: '核对申请人工作证件及权限等级', completed: true },
        { id: 'wf2-2', text: '下发带有时效限制的视频调阅内网链路', completed: false }
-    ]
+    ],
+    workflow: {
+      systemName: '查询录像审批流程',
+      currentStepIndex: 2,
+      steps: [
+        { index: 1, name: '老板审批', handler: '老板' },
+        { index: 2, name: '录像截取并保存', handler: '刘振琴 / 张静涛' }
+      ]
+    }
+  },
+  {
+    id: 'task-zj-5',
+    title: '机台刻蚀速率均匀性漂移异常 - 辅助参数修正案',
+    description: '监控发现 08 号机台在处理磷化层刻蚀时速率分布不均。需由工程师给出参数补偿建议。',
+    category: '技术优化',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '异常处理系统-Others',
+    dueDate: '2026-06-13',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '影响晶圆收率，需尽快修正参数。',
+    actionSteps: [
+      { id: 'zj5-1', text: '对比历史良率曲线寻找波谷节点', completed: true },
+      { id: 'zj5-2', text: '在系统中提交参数偏移补偿申请', completed: false }
+    ],
+    workflow: {
+      systemName: '异常处理系统-Others',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '工程师处理', handler: '张静 (后线工程师)' },
+        { index: 2, name: '产线按需进行处理', handler: '指定带班' },
+        { index: 3, name: '奖励审批', handler: '康红月' },
+        { index: 4, name: '奖励申诉', handler: '指定带班' },
+        { index: 5, name: '再次审批奖励', handler: '康红月' }
+      ]
+    }
+  },
+  {
+    id: 'task-zj-6',
+    title: 'ASML NXT:2050i 机台大修后 Buyoff 良率验证流程',
+    description: '机台 #NXT-2050i 完成镜桶除尘及激光器模组更换，需执行复产 buyoff 流程。',
+    category: '复产验证',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: 'buyoff流程',
+    dueDate: '2026-06-12',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '机台停机每小时损失巨大，需尽快完成良率释放。',
+    actionSteps: [
+      { id: 'zj6-1', text: '核对复产首批测试片(Monitor Wafer)良率参数', completed: true },
+      { id: 'zj6-2', text: '对比大修前后的套刻精度(Overlay)趋势图', completed: false }
+    ],
+    workflow: {
+      systemName: 'buyoff流程',
+      currentStepIndex: 3,
+      steps: [
+        { index: 1, name: '工程师判断buyoff内容合理性', handler: '张静 (后线工程师)' },
+        { index: 2, name: '带班执行buyoff', handler: '指定带班' },
+        { index: 3, name: '工程师判断buyoff结果', handler: '张静 (后线工程师)' },
+        { index: 4, name: '带班按需处理物料', handler: '指定带班' },
+        { index: 5, name: '工程师追溯物料数据', handler: '指定产品工程师' }
+      ]
+    }
+  },
+  {
+    id: 'task-zl-3',
+    title: 'Photo-E11 显影后关键尺寸(CD)稳定性 2 代深度分析工作流',
+    description: '通过 2 代分析系统对近期显影后 CD 波动进行建模分析。需确认分析结果是否满足量产工艺宽容度。',
+    category: '技术优化',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '2代分析系统',
+    dueDate: '2026-06-14',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 赵磊',
+    urgencyExplanation: '为后续工艺规格收窄提供数据支撑。',
+    actionSteps: [
+      { id: 'zl3-1', text: '拉取近 7 天显影后 CD 原始数据', completed: true },
+      { id: 'zl3-2', text: '在 2 代分析系统中上传数据并生成反馈分析报告', completed: false }
+    ],
+    workflow: {
+      systemName: '2代分析系统',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '反馈分析、处理结果', handler: '赵磊 (后线工程师)' },
+        { index: 2, name: '发起人判断结果是否达到预期', handler: '研发发起人' }
+      ]
+    }
+  },
+  {
+    id: 'task-lm-4',
+    title: '区域 A-05 污染判定批次物料报废三级审批',
+    description: '由于供酸系统密封圈老化导致的金属离子超标批次，经判定已无回收价值。需启动物料报废流程。',
+    category: '报废审批',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '物料报废',
+    dueDate: '2026-06-12',
+    createdDate: '2026-06-12',
+    assignee: 'BD经理 - 李明',
+    urgencyExplanation: '库存库位积压预警，需尽快释放物理空间。',
+    actionSteps: [
+      { id: 'lm4-1', text: '核实当班主管提交的污染物含量监测报告', completed: true },
+      { id: 'lm4-2', text: '线上签署物料报废最终指令', completed: false }
+    ],
+    workflow: {
+      systemName: '物料报废',
+      currentStepIndex: 2,
+      steps: [
+        { index: 1, name: '当班主管确认', handler: '指定带班 / 发起人' },
+        { index: 2, name: '区域主管确认', handler: '李明 (BD经理)' }
+      ]
+    }
+  },
+  {
+    id: 'task-zj-foup',
+    title: 'FOUP #A-9283 自由弹夹使用完毕归还流程',
+    description: '工艺 3 组在完成特种光刻胶涂布实验后，需将领用的 5 个 FOUP 晶圆传送盒清理干净并归还至中央库房。',
+    category: '资产归还',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '自由弹夹领用',
+    dueDate: '2026-06-12',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '确保库房周转率，避免容器短缺影响后续批次。',
+    actionSteps: [
+      { id: 'foup1-1', text: '确认传送盒内无残余硅片', completed: true },
+      { id: 'foup1-2', text: '扫码办理归还登记', completed: false }
+    ],
+    workflow: {
+      systemName: '自由弹夹领用',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '归还', handler: '发起人 (张静)' }
+      ]
+    }
+  },
+  {
+    id: 'task-zj-7',
+    title: 'ASML机台套刻精度漂移 2 代 FA 深度诊断分析',
+    description: '通过 2 代分析系统对 Wafer #3928 的套刻偏差进行高维矩阵诊断，排查是否为镜台机械疲劳。',
+    category: '技术优化',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '2代分析系统',
+    dueDate: '2026-06-13',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '定位精度决定了良率，属于工艺红线。',
+    actionSteps: [
+      { id: 'zj7-1', text: '上传 KLA 电镜扫描切片数据', completed: true },
+      { id: 'zj7-2', text: '对比历史模型进行失效预测', completed: false }
+    ],
+    workflow: {
+      systemName: '2代分析系统',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '反馈分析、处理结果', handler: '张静 (后线工程师)' },
+        { index: 2, name: '发起人判断结果是否达到预期', handler: '后线工程师' }
+      ]
+    }
+  },
+  {
+    id: 'task-zj-8',
+    title: '光刻胶超期失效 - 区域 B4 报废最终审答',
+    description: '一批 JSR 原厂光刻胶由于冷链闪断导致化学特质改变，判定为失效。',
+    category: '报废审批',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '物料报废',
+    dueDate: '2026-06-14',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '防止失效物料误入生产线造成重大事故。',
+    actionSteps: [
+      { id: 'zj8-1', text: '核对冷链监控日志。', completed: true },
+      { id: 'zj8-2', text: '在系统中点击同意报废审批。', completed: false }
+    ],
+    workflow: {
+      systemName: '物料报废',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '当班主管确认', handler: '张静 (后线工程师)' },
+        { index: 2, name: '区域主管确认', handler: '李明' }
+      ]
+    }
+  },
+  {
+    id: 'task-wf-3',
+    title: '高倍电子显微镜(SEM) 跨区域临时调借审批',
+    description: '研发一部因 Bumping 工艺验证需求，申请从量产区调借 SEM 设备使用 24 小时。',
+    category: '资产调拨',
+    status: 'pending',
+    priority: 'low',
+    sourceSystem: '借还机申请',
+    dueDate: '2026-06-13',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 王芳',
+    urgencyExplanation: '支持研发进度。',
+    actionSteps: [
+      { id: 'wf3-1', text: '确认量产线当前机台稼动率。', completed: true },
+      { id: 'wf3-2', text: '签署临时调拨许可。', completed: false }
+    ],
+    workflow: {
+      systemName: '借还机申请',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '生产工程师审批', handler: '王芳 (后线工程师)' },
+        { index: 2, name: '申请人重新申请', handler: '发起人' },
+        { index: 3, name: '操作员确认账料已清空', handler: '操作员' },
+        { index: 4, name: '归还设备', handler: '发起人' },
+        { index: 5, name: '填写buyoff结果', handler: '发起人' },
+        { index: 6, name: '带班确认', handler: '指定带班' }
+      ]
+    }
+  },
+  {
+    id: 'task-wf-4',
+    title: '洁净室环境动力波动 2 代反馈分析',
+    description: '监测到 B 区洁净室气压异常波动，需通过 2 代系统汇总过去 48 小时的环境数据并给出反馈结果。',
+    category: '环境监控',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '2代分析系统',
+    dueDate: '2026-06-12',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 王芳',
+    urgencyExplanation: '预防气流乱序导致的颗粒度(Particle)污染。',
+    actionSteps: [
+      { id: 'wf4-1', text: '提取厂务监控传感器历史数据', completed: true },
+      { id: 'wf4-2', text: '在 2 代系统中填写分析响应结果', completed: false }
+    ],
+    workflow: {
+      systemName: '2代分析系统',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '反馈分析、处理结果', handler: '王芳 (后线工程师)' },
+        { index: 2, name: '发起人判断结果是否达到预期', handler: '厂务发起人' }
+      ]
+    }
+  },
+  {
+    id: 'task-zl-4',
+    title: 'Nikon S620D 步进式曝光机 - 覆盖率偏移（Overlay Offset）异常诊断',
+    description: '异常处理系统-Others 触发警报：B3 区曝光机台在执行 7nm 逻辑芯片对准时，捕捉到非线性热形变偏移。',
+    category: '故障警报',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '异常处理系统-Others',
+    dueDate: '2026-06-12',
+    createdDate: '2026-06-12',
+    assignee: '后线工程师 - 赵磊',
+    urgencyExplanation: '形变超标将导致整批晶圆报废，需即刻现场标定。',
+    actionSteps: [
+      { id: 'zl4-1', text: '检查机台二配管气压实时曲线', completed: true },
+      { id: 'zl4-2', text: '校准激光干涉仪零位', completed: false }
+    ],
+    workflow: {
+      systemName: '异常处理系统-Others',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '反馈分析、处理结果', handler: '赵磊 (后线工程师)' },
+        { index: 2, name: '发起人判断结果', handler: '工艺发起人' }
+      ]
+    }
+  },
+  {
+    id: 'task-lm-3',
+    title: '2026 Q3 扩产计划 - KLA-Tencor 量测设备借用会签',
+    description: 'BD 部门李明需协调 1 台 KLA 测量设备从研发实验室调拨至量产线，支持新加坡车载芯片项目的良率监控。',
+    category: '资产调拨',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '借还机申请',
+    dueDate: '2026-06-15',
+    createdDate: '2026-06-12',
+    assignee: 'BD经理 - 李明',
+    urgencyExplanation: '扩产计划节点要求，需提前完成设备到位。',
+    actionSteps: [
+      { id: 'lm3-1', text: '在借还机系统中提交调拨申请单', completed: true },
+      { id: 'lm3-2', text: '联系李洁确认机台物流排程', completed: false }
+    ],
+    workflow: {
+      systemName: '借还机申请',
+      currentStepIndex: 1,
+      steps: [
+        { index: 1, name: '生产工程师审批', handler: '李明 (BD经理)' },
+        { index: 2, name: '申请人重新申请', handler: '发起人' },
+        { index: 3, name: '操作员确认账料已清空', handler: '操作员' },
+        { index: 4, name: '归还设备', handler: '发起人' },
+        { index: 5, name: '填写buyoff结果', handler: '发起人' },
+        { index: 6, name: '带班确认', handler: '指定带班' }
+      ]
+    }
   }
 ];
 
 export const MESSAGE_TEMPLATES = {
-  oom_crash: {
-    text: `【EAP机台重大异常警报】ASML浸没曝光机（Twinscan NXT）于13:40突发SECS协议闪闪断连, 工艺配方(Recipe)下发校验失败, 造成在线精密晶圆(Wafer Lot)阻滞停机。请后线机控工程师赵磊火速跟进自愈重拨证书, 1小时内复绿！`,
-    sender: `ASML-NXT-Detector@fab3.corp.com`,
-    system: `EAP系统`,
+  others_alert: {
+    text: `【异常处理系统-Others】厂务二次配管气压报警：检测到B区洁净室动力气压低于标准阈值，需紧急处理并校准站点状态。`,
+    sender: `Facility-Others-Robot@fab3.corp.com`,
+    system: `异常处理系统-Others`,
     category: `故障警报`,
-    priority: `high`
-  },
-  audit_approval: {
-    text: `【WMS大额审批流程催办】流程号#WMS-7492：曝光间高敏光刻胶低温冷链配套恒温高压氮气瓶由于投片追加超载，警戒红线剧降，需追加限额25万元资金订购，急需厂务保障专家张静今天下午核准签批！`,
-    sender: `WMS-Inventory-Robot@fab3.corp.com`,
-    system: `WMS系统`,
-    category: `大额审批`,
-    priority: `high`
-  },
-  ticket_error: {
-    text: `【MES车载芯片加急排程单】大客户新加坡车载片追加首期3.5万片投产(Lot), 要求抢占ASML光刻极速套刻曝光Slots槽位。急调BD总监李明核对晶圆首批流片排程以及洁净室备件承载度方案！`,
-    sender: `MES-Plan-Dispatcher@fab3.corp.com`,
-    system: `MES系统`,
-    category: `订单协调`,
-    priority: `high`
-  },
-  threat_alert: {
-    text: `【EHS剧毒氟氢酸环控红线自查函】国家安信总办环保协查明令：请环保合规官王芳主领，运维专家李明和耗料组张静配合，火速汇总拉取等离子刻蚀气阀和溢漫池自动切断故障日志及危险品量化清单！`,
-    sender: `EHS-Gov-Safety@gov.cn`,
-    system: `WMS系统`,
-    category: `安全合规`,
     priority: `high`
   }
 };

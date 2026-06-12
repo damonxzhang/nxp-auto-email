@@ -74,7 +74,7 @@ export default function App() {
   const [filterSystem, setFilterSystem] = useState<string>('all');
 
   const [activeSimulatedSystemId, setActiveSimulatedSystemId] = useState(CORPORATE_SYSTEMS[0].id);
-  const [simulatedTaskText, setSimulatedTaskText] = useState(MESSAGE_TEMPLATES.oom_crash.text);
+  const [simulatedTaskText, setSimulatedTaskText] = useState(MESSAGE_TEMPLATES.others_alert.text);
   const [simulationLogs, setSimulationLogs] = useState<{ time: string; message: string; type: string }[]>([]);
 
   const [newSysId, setNewSysId] = useState('');
@@ -173,11 +173,9 @@ export default function App() {
 
   const handleFillSpecificSystemPreset = () => {
     const presets: Record<string, string> = {
-      'EAP系统': MESSAGE_TEMPLATES.oom_crash.text,
-      'WMS系统': MESSAGE_TEMPLATES.audit_approval.text,
-      'MES系统': MESSAGE_TEMPLATES.ticket_error.text,
+      '异常处理系统-Others': MESSAGE_TEMPLATES.others_alert.text,
     };
-    setSimulatedTaskText(presets[activeSimulatedSystemId] || MESSAGE_TEMPLATES.oom_crash.text);
+    setSimulatedTaskText(presets[activeSimulatedSystemId] || MESSAGE_TEMPLATES.others_alert.text);
   };
 
   const handleOnboardSystem = () => {
@@ -362,7 +360,7 @@ export default function App() {
                         {filteredTasks.length} ITEMS
                       </span>
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">自动汇聚自 MES/OA/WMS 等异构芯片 Fab 业务系统</p>
+                    <p className="text-xs text-slate-400 mt-0.5">自动汇聚自 2代分析/物料报废/buyoff 等异构芯片 Fab 业务系统</p>
                   </div>
                 </div>
 

@@ -86,6 +86,15 @@ export const TaskTable: React.FC<TaskTableProps> = ({
                         <p className="text-[11px] text-slate-400 mt-1 line-clamp-1 italic font-medium leading-relaxed">
                           {task.description}
                         </p>
+                        {task.workflow && !isCompleted && (
+                          <div className="mt-1.5 flex items-center gap-1.5 bg-indigo-50/50 border border-indigo-100 rounded-md px-2 py-0.5 w-fit">
+                            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-tighter shrink-0">当前节点:</span>
+                            <span className="text-[9px] font-black text-slate-700 truncate max-w-[150px]">
+                              {task.workflow.steps.find(s => s.index === task.workflow?.currentStepIndex)?.name}
+                            </span>
+                            <span className="text-[9px] font-black text-indigo-400">({task.workflow.currentStepIndex}/{task.workflow.steps.length})</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </td>
