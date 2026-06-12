@@ -196,15 +196,15 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
         </div>
 
         <div className="xl:col-span-5 flex flex-col gap-6">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex-1 flex flex-col justify-between text-left">
-            <div className="space-y-4">
-              <div className="flex border-b border-slate-100 pb-3">
+          <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex-1 flex flex-col justify-between text-left">
+            <div className="space-y-3.5">
+              <div className="flex border-b border-slate-100 pb-2.5">
                 <span className="font-extrabold text-slate-900 flex items-center gap-1.5 text-xs">
                   <Cpu className="w-4.5 h-4.5 text-indigo-600" />
                   API Webhook 智能派发模拟器
                 </span>
               </div>
-              <div className="space-y-4 text-xs">
+              <div className="space-y-3.5 text-xs">
                 <div>
                   <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">第一步：选择用于派发的对接事件源系统</label>
                   <select
@@ -225,13 +225,13 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
                   <textarea
                     value={simulatedTaskText}
                     onChange={(e) => setSimulatedTaskText(e.target.value)}
-                    rows={5}
+                    rows={4}
                     className="w-full bg-slate-50 border border-slate-250 rounded-lg px-3 py-2 text-[11.5px] font-mono focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
                 <button
                   onClick={handleSimulateWebhookPush}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold transition flex items-center justify-center gap-2"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
                   <span>虚拟发送 Webhook 事件到 API 中枢</span>
@@ -239,12 +239,12 @@ export const Sandbox: React.FC<SandboxProps> = (props) => {
               </div>
             </div>
             
-            <div className="mt-6 bg-slate-950 rounded-xl p-4 font-mono text-[10px] text-slate-400 overflow-hidden flex-1 border border-slate-800">
-               <div className="flex items-center gap-2 mb-2 border-b border-slate-800 pb-2">
+            <div className="mt-4 bg-slate-950 rounded-xl p-3.5 font-mono text-[10px] text-slate-400 overflow-hidden border border-slate-800">
+               <div className="flex items-center gap-2 mb-2 border-b border-slate-800 pb-1.5">
                  <div className="w-2 h-2 rounded-full bg-amber-500"></div>
                  <span className="text-slate-300 font-black">终端实时调试日志 (Real-time Stream)</span>
                </div>
-               <div className="space-y-1 overflow-y-auto max-h-[250px]">
+               <div className="space-y-1 overflow-y-auto max-h-[160px] custom-scrollbar">
                   {simulationLogs.map((log, idx) => (
                     <div key={idx} className="flex gap-2">
                       <span className="text-slate-600">[{log.time}]</span>

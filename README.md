@@ -1,20 +1,46 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Fab 业务系统 (Fab Operations Hub)
 
-# Run and deploy your AI Studio app
+一个专为半导体芯片工厂 (Fab) 设计的高级待办任务汇聚与流程协作系统。该系统通过自动整合多个异构业务系统的任务流，为工程师和管理者提供统一的操作入口，解决跨系统协作中的信息碎片化问题。
 
-This contains everything you need to run your app locally.
+## 🌟 核心功能
 
-View your app in AI Studio: https://ai.studio/apps/8d03a8e6-2123-47e9-924b-09fc91df23d6
+- **异构系统任务汇总**: 自动抓取并聚合来自 2代分析、物料报废、Buyoff、借还机等 7+ 个核心 Fab 系统的待办事项。
+- **可视化工作流追踪**: 实时展示每个任务的审批进度、当前处理节点及具体负责人，支持多级审批流呈现。
+- **个性化待办看板**: 针对不同角色（BD经理、工程师、后线工程师）提供垂直的任务分配与优先级管理。
+- **仿真模拟环境**: 内置业务闭环模拟工具，支持自定义消息模版输入，模拟从异常报警到任务生成的全过程。
 
-## Run Locally
+## 🏢 接入系统列表
 
-**Prerequisites:**  Node.js
+系统目前已深度集成以下专业 Fab 业务流程：
 
+1.  **自由弹夹领用 (FOUP Requisition)**: FOUP 晶圆密封隔离传送盒的自由周转、领用去向登记及归还追踪。
+2.  **2代分析系统 (Gen-2 Analysis)**: 失效分析 (FA)、KLA 电镜高维切片精密检测及良率矩阵诊断分析。
+3.  **物料报废 (Material Scrap)**: 高危化学物资、失效耗料的 EHS 环保合规离线销账与审批流程。
+4.  **buyoff 流程 (Buyoff Process)**: 机台复产/大修后的产品质量批复、良率释放判定及失控规则在控校验。
+5.  **借还机申请 (Tool Borrow/Return)**: 高精密量测探仪、备品零件的跨区域调借、流转即结算流程。
+6.  **查询录像审批 (CCTV Query)**: 洁净操作间、ASML 曝光区物理监控视频的授权调阅与安全凭证签发。
+7.  **异常处理系统-Others (Others Alert)**: 厂务二次配管、气室动力等非标站点异常的应急反馈与自愈校验。
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 👤 用户画像与角色
+
+系统支持基于角色的权限展示，内置以下核心成员数据：
+
+-   **李明 (BD经理)**: 负责代工业务拓展、扩产计划会签及高层物料报废审批。
+-   **张静 (后线工程师)**: 专注于工艺保障、晶圆传送盒(FOUP)周转及 Buyoff 验证。
+-   **赵磊 (后线工程师)**: 负责 EAP 自动化、机台故障警报排查及 2 代失效深度分析。
+-   **王芳 (后线工程师)**: 专注于洁净室 EHS 合规、环境监控数据分析及安全视频审计。
+
+## 🛠 技术栈
+
+-   **Frontend**: React 18 + Vite
+-   **Styling**: Tailwind CSS (现代工业风 UI)
+-   **Animations**: Framer Motion (平滑的页面切换与列表反馈)
+-   **Icons**: Lucide React (高清晰度工业图标集)
+-   **Data Management**: 模块化 TypeScript 类型驱动的静态数据模型
+
+## 🚀 快速开始
+
+1.  **用户切换**: 点击顶部头像可切换当前登录身份。
+2.  **系统过滤**: 使用侧边栏或顶部标签快速筛选特定系统的待办。
+3.  **任务详情**: 点击列表项可展开查看完整的工作流进度图和具体操作步骤。
+4.  **模拟测试**: 使用右上角的“仿真系统”工具，通过输入系统特定消息来触发新的待办任务。
