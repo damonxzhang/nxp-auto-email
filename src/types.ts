@@ -1,3 +1,13 @@
+export interface UserProfile {
+  id: string;
+  name: string;
+  fullName: string;
+  role: string;
+  avatarBg: string;
+  avatarText: string;
+  managerId?: string;
+}
+
 export type Priority = 'high' | 'medium' | 'low';
 export type TaskStatus = 'pending' | 'processing' | 'completed';
 
