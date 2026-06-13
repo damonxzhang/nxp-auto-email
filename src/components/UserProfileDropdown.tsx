@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserProfile, Task } from '../types';
+import { EmailPreviewModal } from './EmailPreviewModal';
 
 interface UserProfileDropdownProps {
   currentUser: UserProfile;
@@ -31,6 +32,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
   const [startDate, setStartDate] = React.useState(currentUser.vacationInfo?.startDate || '');
   const [endDate, setEndDate] = React.useState(currentUser.vacationInfo?.endDate || '');
   const [substitutes, setSubstitutes] = React.useState<Record<string, string>>(currentUser.vacationInfo?.substitutes || {});
+  const [showEmailPreview, setShowEmailPreview] = React.useState(false);
   
   const handleSave = () => {
     onUpdateVacation(currentUser.id, { isVacation, startDate, endDate, substitutes });
@@ -39,6 +41,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
   
   return (
     <>
+      {showEmailPreview && <EmailPreviewModal tasks={tasks} profiles={profiles} onClose={() => setShowEmailPreview(false)} />}
       <div className="fixed inset-0 z-40 cursor-default" onClick={onClose} />
       <div className="absolute right-0 mt-2.5 w-[320px] bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-4 animate-fadeIn text-left">
         <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
@@ -141,6 +144,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
                 ))}
               </div>
               <button onClick={handleSave} className="w-full bg-indigo-600 text-white text-[10px] font-black py-1.5 rounded-lg hover:bg-indigo-700">保存设置</button>
+              <button onClick={() => setShowEmailPreview(true)} className="w-full bg-slate-100 text-slate-800 text-[10px] font-black py-1.5 rounded-lg hover:bg-slate-200">请假首日汇总邮件展示</button>
             </div>
           )}
         </div>
