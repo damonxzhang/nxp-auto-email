@@ -39,6 +39,7 @@ export interface Task {
   sourceSystem: string; // e.g., 'OA系统', '监控系统', 'ERP平台', 'CRM平台', '核心邮箱'
   dueDate: string; // YYYY-MM-DD
   createdDate: string; // YYYY-MM-DD
+  receivedDate?: string; // YYYY-MM-DD HH:mm
   urgencyExplanation?: string;
   actionSteps: ActionStep[];
   assignee: string;
@@ -47,6 +48,9 @@ export interface Task {
     currentStepIndex: number;
     steps: WorkflowStep[];
   };
+  urls?: string[];
+  imageUrls?: string[];
+  attachments?: { name: string; url: string }[];
 }
 
 export interface IncomingMessage {
