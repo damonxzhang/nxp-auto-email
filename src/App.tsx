@@ -195,12 +195,31 @@ export default function App() {
     triggerToast(`🚀 子系统已成功 onboard：${newSysName} 专线已激活`);
   };
 
-  const toggleUserVacation = (userId: string) => {
+  const handleUpdateVacation = (userId: string, vacationInfo: {
+    isVacation: boolean;
+    startDate?: string;
+    endDate?: string;
+    substitutes: Record<string, string>;
+  }) => {
+    setProfiles(prev => prev.map(p => p.id === userId ? { ...p, vacationInfo } : p));
     setUserStatusMap(prev => ({
       ...prev,
-      [userId]: { isVacation: !prev[userId]?.isVacation }
+      [userId]: { isVacation: vacationInfo.isVacation },
     }));
-    triggerToast(`岗态已更新为：${!userStatusMap[userId]?.isVacation ? '请假离岗 (已激活 SMTP 代发)' : '正常在岗'}`);
+    triggerToast(`岗态已更新：${vacationInfo.isVacation ? '已激活请假模式' : '已恢复在岗'}`);
+  };
+
+  const toggleUserVacation = (userId: string) => {
+    const user = profiles.find(p => p.id === userId);
+    if (!user) return;
+    
+    const newIsVacation = !user.vacationInfo?.isVacation;
+    
+    handleUpdateVacation(userId, {
+      ...user.vacationInfo,
+      isVacation: newIsVacation,
+      substitutes: user.vacationInfo?.substitutes || {}
+    });
   };
 
   const handleCompleteTask = (taskId: string) => {
@@ -278,15 +297,16 @@ export default function App() {
 
       <AnimatePresence>
         {isProfileOpen && (
-          <UserProfileDropdown 
-            currentUser={currentUser}
-            profiles={profiles}
-            userStatusMap={userStatusMap}
-            tasks={tasks}
-            onUserSwitch={setCurrentUser}
-            onToggleVacation={toggleUserVacation}
-            onClose={() => setIsProfileOpen(false)}
-          />
+            <UserProfileDropdown 
+              currentUser={currentUser}
+              profiles={profiles}
+              userStatusMap={userStatusMap}
+              tasks={tasks}
+              corporateSystems={corporateSystems}
+              onUserSwitch={setCurrentUser}
+              onUpdateVacation={handleUpdateVacation}
+              onClose={() => setIsProfileOpen(false)}
+            />
         )}
       </AnimatePresence>
 

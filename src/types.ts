@@ -6,6 +6,12 @@ export interface UserProfile {
   avatarBg: string;
   avatarText: string;
   managerId?: string;
+  vacationInfo?: {
+    isVacation: boolean;
+    startDate?: string;
+    endDate?: string;
+    substitutes: Record<string, string>; // systemId -> userId
+  };
 }
 
 export type Priority = 'high' | 'medium' | 'low';
