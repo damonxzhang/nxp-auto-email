@@ -288,10 +288,7 @@ export default function App() {
       <Header 
         currentUser={currentUser}
         userStatusMap={userStatusMap}
-        activeView={activeView}
-        setActiveView={setActiveView}
         isProfileOpen={isProfileOpen}
-        setIsProfileOpen={setIsProfileOpen}
         onProfileClick={() => setIsProfileOpen(!isProfileOpen)}
       />
 

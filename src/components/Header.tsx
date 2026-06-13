@@ -1,22 +1,17 @@
 import React from 'react';
-import { Workflow, ArrowRight, ChevronDown } from 'lucide-react';
+import { Workflow, ChevronDown } from 'lucide-react';
 import { UserProfile, Task } from '../types';
 
 interface HeaderProps {
   currentUser: UserProfile;
   userStatusMap: Record<string, { isVacation: boolean }>;
-  activeView: 'dashboard' | 'sandbox';
-  setActiveView: (view: 'dashboard' | 'sandbox') => void;
   isProfileOpen: boolean;
-  setIsProfileOpen: (open: boolean) => void;
   onProfileClick: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentUser,
   userStatusMap,
-  activeView,
-  setActiveView,
   isProfileOpen,
   onProfileClick
 }) => {
@@ -45,29 +40,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-slate-750 font-mono font-bold">2026-06-11 UTC</span>
           </div>
           
-          <button
-            onClick={() => {
-              setActiveView(activeView === 'dashboard' ? 'sandbox' : 'dashboard');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className={`text-xs px-3.5 py-1.5 rounded-lg font-black transition flex items-center gap-1.5 cursor-pointer border shadow-sm ${
-              activeView === 'sandbox'
-                ? 'bg-indigo-600 hover:bg-indigo-500 border-indigo-500 text-indigo-50'
-                : 'bg-slate-900 hover:bg-slate-800 border-slate-900 text-slate-100'
-            }`}
-          >
-            {activeView === 'sandbox' ? (
-              <>
-                <span>📋 待办中枢大盘</span>
-              </>
-            ) : (
-              <>
-                <span>🔌 API & 仿真沙盒专区</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </>
-            )}
-          </button>
-
           <div className="relative">
             <button
               id="btn-profile-center"
