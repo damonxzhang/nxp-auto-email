@@ -177,6 +177,7 @@ export default function App() {
   const handleFillSpecificSystemPreset = () => {
     const presets: Record<string, string> = {
       '异常处理系统-Others': MESSAGE_TEMPLATES.others_alert.text,
+      '异常物料处理系统': MESSAGE_TEMPLATES.abnormal_material_alert.text,
     };
     setSimulatedTaskText(presets[activeSimulatedSystemId] || MESSAGE_TEMPLATES.others_alert.text);
   };

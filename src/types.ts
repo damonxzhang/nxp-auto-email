@@ -51,6 +51,69 @@ export interface Task {
   urls?: string[];
   imageUrls?: string[];
   attachments?: { name: string; url: string }[];
+  materialAbnormalDetail?: {
+    lotNo: string;
+    processName: string;
+    machineNo: string;
+    pkgType: string;
+    pkgCode: string;
+    substandardType: string;
+    issueNo: string;
+    discoveredBy: string;
+    launchTime: string;
+    fiveMOneE: string;
+    filePath: string;
+    historyFile: string;
+    reason: string;
+    anomalyCategory: string;
+    initialActionDesc: string;
+    initialActionBy: string;
+    teamLeaderActionTime: string;
+    step2?: {
+      substandardTypes: string[];
+      substandardQtys: string[];
+      actionDesc: string;
+    };
+    step3?: {
+      engineerOpinion: string;
+      actionOpinion: string;
+      engineerActionTime: string;
+      isKeepSubstandard: string;
+      keepInfo: string;
+    };
+    step4?: {
+      isKeepSubstandard: string;
+      keepInfo: string;
+      remark: string;
+      teamLeaderActionTime: string;
+    };
+    step5?: {
+      isPublic: string;
+      qualityRiskLevel: string;
+      effortLevel: string;
+      rewardCalc: string;
+      actionTime: string;
+    };
+    step6?: {
+      isModify: string;
+      auditResult: string;
+      auditTime: string;
+      auditReward: string;
+    };
+    step6_appeal?: {
+      isAppeal: string;
+      appellant: string;
+      appealTime: string;
+      appealReward: string;
+      appealReason: string;
+    };
+    step7?: {
+      reAuditResult: string;
+      reAuditTime: string;
+      finalReward: string;
+      finalAuditResult: string;
+    };
+  };
 }
 
 export interface IncomingMessage {

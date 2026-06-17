@@ -87,12 +87,45 @@ export const TaskTable: React.FC<TaskTableProps> = ({
                           {task.description}
                         </p>
                         {task.workflow && !isCompleted && (
-                          <div className="mt-1.5 flex items-center gap-1.5 bg-indigo-50/50 border border-indigo-100 rounded-md px-2 py-0.5 w-fit">
-                            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-tighter shrink-0">当前节点:</span>
-                            <span className="text-[9px] font-black text-slate-700 truncate max-w-[150px]">
-                              {task.workflow.steps.find(s => s.index === task.workflow?.currentStepIndex)?.name}
-                            </span>
-                            <span className="text-[9px] font-black text-indigo-400">({task.workflow.currentStepIndex}/{task.workflow.steps.length})</span>
+                          <div className="mt-2 space-y-1.5">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="flex items-center gap-1 bg-indigo-50/70 border border-indigo-100 rounded-md px-1.5 py-0.5 text-[9px] font-black text-indigo-600 tracking-tight shrink-0">
+                                <span>当前节点:</span>
+                                <span className="font-extrabold text-slate-700">
+                                  {task.workflow.steps.find(s => s.index === task.workflow?.currentStepIndex)?.name}
+                                </span>
+                                <span className="font-mono text-indigo-400">({task.workflow.currentStepIndex}/{task.workflow.steps.length})</span>
+                              </span>
+                              {task.sourceSystem === '异常物料处理系统' && (
+                                <span className="bg-rose-50 text-rose-600 border border-rose-150 px-1 py-0.5 rounded text-[8px] font-black tracking-tight uppercase">
+                                  异常物料处理专线
+                                </span>
+                              )}
+                            </div>
+                            
+                            {/* Horizontal Process Steps Visualizer */}
+                            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 pt-1 overflow-x-auto max-w-full">
+                              {task.workflow.steps.map((st, i) => {
+                                const isCurrent = st.index === task.workflow?.currentStepIndex;
+                                const isPast = (task.workflow?.currentStepIndex || 0) > st.index;
+                                return (
+                                  <React.Fragment key={st.index}>
+                                    {i > 0 && <span className="text-slate-300 text-[8px] font-mono select-none">→</span>}
+                                    <div className="flex items-center gap-1">
+                                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-black transition-all ${
+                                        isCurrent 
+                                          ? 'bg-rose-500 text-white shadow-xs scale-102 ring-2 ring-rose-500/10' 
+                                          : isPast 
+                                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' 
+                                            : 'bg-slate-50 text-slate-400 border border-slate-100'
+                                      }`}>
+                                        {st.index}. {st.name}
+                                      </span>
+                                    </div>
+                                  </React.Fragment>
+                                );
+                              })}
+                            </div>
                           </div>
                         )}
                       </div>

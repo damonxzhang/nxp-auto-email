@@ -8,6 +8,7 @@ export const DEFAULT_PROFILES: UserProfile[] = [
 ];
 
 export const CORPORATE_SYSTEMS = [
+  { id: '异常物料处理系统', name: '异常物料处理系统', icon: 'AlertTriangle', theme: 'rose', description: '本系统涵盖异常在制品、原料缺陷拦截、工程师处理、带班按需处置及多级奖励与审批流程' },
   { id: '异常处理系统-Others', name: '异常处理系统-Others', icon: 'HelpCircle', theme: 'amber', description: '厂务二次配管、气室动力、水电气运行环境辅助非标站点异常应急与自愈校验' },
   { id: '查询录像审批流程', name: '查询录像审批流程', icon: 'Video', theme: 'sky', description: '洁净操作车间、高精ASML曝光区物理监控视频授权调阅与安全凭证流程审批' },
   { id: '借还机申请', name: '借还机申请', icon: 'RefreshCw', theme: 'indigo', description: '高精密量测探仪、装配机件及厂务备品零配件短期调借、流转借还结算' },
@@ -330,6 +331,454 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 6, name: '带班确认', handler: '指定带班' }
       ]
     }
+  },
+  {
+    id: 'task-zj-abnormal-1',
+    title: '异常物料 - [样例1] Mold 异常物料外来物拦截下的判定与整套流程流转',
+    description: '批号: TJPF10BC1060 | 工序: Mold异常物料 | 机台: BMD-17 | pkgType: BGA | pkgCode: 00A9\n发现人刘佳于2026-03-08 13:04:09因人员抽检发现一粒外来物。初步处理人陈鹏飞整批扣留，并在13:07:24移交带班马磊发起并完成100% X-RAY检查（1次品已画已拒，已HOLD）。目前已流调至 3. 工程师给出处理意见 环节。',
+    category: '异常物料',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-15',
+    createdDate: '2026-03-08',
+    receivedDate: '2026-03-08 13:07',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '产品工艺红线风险，急需产品工程师确定处理意见并提交。',
+    actionSteps: [
+      { id: 'ab1-1', text: '查验物料物理擦伤和表面污点显微镜图像', completed: true },
+      { id: 'ab1-2', text: '在系统中提交处理意见：判定为不放行', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 3,
+      steps: [
+        { index: 1, name: '发起流程', handler: '马磊' },
+        { index: 2, name: '按照需求检查物料', handler: '马磊' },
+        { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
+        { index: 4, name: '带班按需处理物料', handler: '马磊' },
+        { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10BC1060',
+      processName: 'Mold异常物料',
+      machineNo: 'BMD-17',
+      pkgType: 'BGA',
+      pkgCode: '00A9',
+      substandardType: '外来物',
+      issueNo: '36',
+      discoveredBy: '刘佳',
+      launchTime: '2026-03-08 13:04:09',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260308-Mold异常物料-BMD-17-TJPF10BC1060-异常次品',
+      historyFile: 'c82774503e050603f59b04ce14bdc0f.jpg',
+      reason: '人员抽检时发现一粒外来物',
+      anomalyCategory: '原材料',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '陈鹏飞',
+      teamLeaderActionTime: '2026-03-08 13:07:24',
+      step2: {
+        substandardTypes: ['外来物', 'N/A', 'N/A'],
+        substandardQtys: ['1', 'N/A', 'N/A'],
+        actionDesc: '追加此批100%X-RAY，除1粒外来物其它无次品，联系R班工程师1粒次品已画已拒，已HOLD,此批物料放行'
+      },
+      step3: {
+        engineerOpinion: '放行',
+        actionOpinion: '整批已xray: 共1粒次品，注意保留次品给闫鹏',
+        engineerActionTime: '2026-03-09 10:44:58',
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中'
+      },
+      step4: {
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中',
+        remark: 'N/A',
+        teamLeaderActionTime: '2026-03-09 12:29:52'
+      },
+      step5: {
+        isPublic: '未公示',
+        qualityRiskLevel: '内部,对客户无质量影响',
+        effortLevel: '职能责任内',
+        rewardCalc: 'Rank6_10元',
+        actionTime: '2026-03-09 13:43:27'
+      },
+      step6: {
+        isModify: '否',
+        auditResult: '通过',
+        auditTime: '2026-03-09 16:59:49',
+        auditReward: 'Rank6_10元'
+      },
+      step6_appeal: {
+        isAppeal: '是',
+        appellant: '马磊',
+        appealTime: '2026-03-10 17:33:13',
+        appealReward: 'Rank3_100元',
+        appealReason: '已与R班工程师沟通具体情况，同意申诉请求'
+      },
+      step7: {
+        reAuditResult: '通过',
+        reAuditTime: '2026-03-11 09:27:47',
+        finalReward: 'Rank3_100元',
+        finalAuditResult: '通过'
+      }
+    }
+  },
+  {
+    id: 'task-zl-abnormal-2',
+    title: '异常物料 - [样例2] Saw 晶圆划片机下料散乱异常处置流程',
+    description: '批号: TJPF10FNE000 | 工序: Saw | 机台: BSG-29 | pkgType: PQFN | pkgCode: 004S\n发现人王振智于2026-03-13 04:21:13因下料picker故障导致散乱。初步处理人金朋进行整批扣留，并在04:22:34移交带班孙志斌。带班完成100% VM无次品后，已处于 5. 工程师发放奖励 步骤。',
+    category: '常规次品',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-20',
+    createdDate: '2026-03-13',
+    receivedDate: '2026-03-13 04:22',
+    assignee: '后线工程师 - 赵磊',
+    urgencyExplanation: '常规安全合规与质量拦截奖励，需由后线工程师赵磊核定发放等级并流转审批。',
+    actionSteps: [
+      { id: 'ab2-1', text: '核对拦截违规批次和防污染贡献度评分', completed: true },
+      { id: 'ab2-2', text: '在线核准奖励包并发起奖金提请', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 5,
+      steps: [
+        { index: 1, name: '发起流程', handler: '孙志斌' },
+        { index: 2, name: '按照需求检查物料', handler: '孙志斌' },
+        { index: 3, name: '工程师给出处理意见', handler: '赵建国' },
+        { index: 4, name: '带班按需处理物料', handler: '孙志斌' },
+        { index: 5, name: '工程师发放奖励', handler: '赵建国' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10FNE000',
+      processName: 'Saw',
+      machineNo: 'BSG-29',
+      pkgType: 'PQFN',
+      pkgCode: '004S',
+      substandardType: 'N/A',
+      issueNo: 'N/A',
+      discoveredBy: '王振智',
+      launchTime: '2026-03-13 04:21:13',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260313-Saw-BSG-29-TJPF10FNE000-设备问题导致的物料处理',
+      historyFile: '29.jpg',
+      reason: '因下料picker故障，导致下料散乱。',
+      anomalyCategory: '设备问题导致的物料处理',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '金朋',
+      teamLeaderActionTime: '2026-03-13 04:22:34',
+      step2: {
+        substandardTypes: ['N/A', 'N/A', 'N/A'],
+        substandardQtys: ['N/A', 'N/A', 'N/A'],
+        actionDesc: '已将散乱物料100%vm，无次品，已通知PM。'
+      },
+      step3: {
+        engineerOpinion: '放行',
+        actionOpinion: 'N/A',
+        engineerActionTime: '2026-03-13 08:02:32',
+        isKeepSubstandard: '不保留',
+        keepInfo: ''
+      },
+      step4: {
+        isKeepSubstandard: '不保留',
+        keepInfo: '',
+        remark: 'N/A',
+        teamLeaderActionTime: '2026-03-17 10:33:18'
+      },
+      step5: {
+        isPublic: '未公示',
+        qualityRiskLevel: '内部,对客户无质量影响',
+        effortLevel: '职能责任内',
+        rewardCalc: 'Rank6_10元',
+        actionTime: '2026-03-17 16:20:49'
+      },
+      step6: {
+        isModify: '否',
+        auditResult: '通过',
+        auditTime: '2026-03-18 09:04:04',
+        auditReward: 'Rank6_10元'
+      },
+      step6_appeal: {
+        isAppeal: '否',
+        appellant: '孙志彬',
+        appealTime: '2026-03-18 20:52:14',
+        appealReward: 'Rank6_10元',
+        appealReason: ''
+      }
+    }
+  },
+  {
+    id: 'task-abnormal-mold-step1',
+    title: '异常物料 - [样例1] Mold 外来物拦截 (Step 2 待带班录入检查)',
+    description: '批号: TJPF10BC1060 | 工序: Mold异常物料 | 机台: BMD-17\n刘佳于03-08 13:04初检发现一粒外来物。陈鹏飞扣留整批。发起流程马磊已提交，当前节点：2. 按照需求检查物料（待当班带班录入100% X-RAY检验结果数据）。',
+    category: '异常物料',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-15',
+    createdDate: '2026-03-08',
+    receivedDate: '2026-03-08 13:04',
+    assignee: '后线工程师 - 张静',
+    urgencyExplanation: '在制品拦截初始流转，带班陈鹏飞、马磊正在机台前加急做100% X-RAY全检，请跟进录单。',
+    actionSteps: [
+      { id: 'ab1-s1-1', text: '协同带班获取100% X-RAY缺陷胶片并督查录单', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 2,
+      steps: [
+        { index: 1, name: '发起流程', handler: '马磊' },
+        { index: 2, name: '按照需求检查物料', handler: '马磊' },
+        { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
+        { index: 4, name: '带班按需处理物料', handler: '马磊' },
+        { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10BC1060',
+      processName: 'Mold异常物料',
+      machineNo: 'BMD-17',
+      pkgType: 'BGA',
+      pkgCode: '00A9',
+      substandardType: '外来物',
+      issueNo: '36',
+      discoveredBy: '刘佳',
+      launchTime: '2026-03-08 13:04:09',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260308-Mold异常物料-BMD-17-TJPF10BC1060-异常次品',
+      historyFile: 'c82774503e050603f59b04ce14bdc0f.jpg',
+      reason: '人员抽检时发现一粒外来物',
+      anomalyCategory: '原材料',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '陈鹏飞',
+      teamLeaderActionTime: '2026-03-08 13:07:24'
+    }
+  },
+  {
+    id: 'task-abnormal-saw-step3',
+    title: '异常物料 - [样例2] Saw 划片机下料散乱 (Step 3 待给出处置意见)',
+    description: '批号: TJPF10FNE000 | 工序: Saw | 机台: BSG-29\n由于下料picker机械卡阻散片。金朋扣留，带班孙志斌已于04:22完成100% VM目检并宣布全部无次品。当前节点：3. 工程师给出处理意见（等待赵建国或当班代管后线工程师给出处理决定）。',
+    category: '常规次品',
+    status: 'pending',
+    priority: 'medium',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-20',
+    createdDate: '2026-03-13',
+    receivedDate: '2026-03-13 04:22',
+    assignee: '后线工程师 - 赵磊',
+    urgencyExplanation: '机械散乱可能产生暗裂，请核对VM结果后，批开放行决定或追查硅片参数。',
+    actionSteps: [
+      { id: 'ab2-s3-1', text: '对比此批号前序工艺裂纹及良率数据', completed: true },
+      { id: 'ab2-s3-2', text: '签发工程师处理放行判定书', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 3,
+      steps: [
+        { index: 1, name: '发起流程', handler: '孙志斌' },
+        { index: 2, name: '按照需求检查物料', handler: '孙志斌' },
+        { index: 3, name: '工程师给出处理意见', handler: '赵建国' },
+        { index: 4, name: '带班按需处理物料', handler: '孙志斌' },
+        { index: 5, name: '工程师发放奖励', handler: '赵建国' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10FNE000',
+      processName: 'Saw',
+      machineNo: 'BSG-29',
+      pkgType: 'PQFN',
+      pkgCode: '004S',
+      substandardType: 'N/A',
+      issueNo: 'N/A',
+      discoveredBy: '王振智',
+      launchTime: '2026-03-13 04:21:13',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260313-Saw-BSG-29-TJPF10FNE000-设备问题导致的物料处理',
+      historyFile: '29.jpg',
+      reason: '因下料picker故障，导致下料散乱。',
+      anomalyCategory: '设备问题导致的物料处理',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '金朋',
+      teamLeaderActionTime: '2026-03-13 04:22:34',
+      step2: {
+        substandardTypes: ['N/A', 'N/A', 'N/A'],
+        substandardQtys: ['N/A', 'N/A', 'N/A'],
+        actionDesc: '已将散乱物料100%vm，无次品，已通知PM。'
+      }
+    }
+  },
+  {
+    id: 'task-abnormal-mold-step6',
+    title: '异常物料 - [样例1] Mold 外来物拦截 (Step 6 待负责人奖励审批)',
+    description: '批号: TJPF10BC1060 | 工程师闫鹏已下达处理意见及后续带班跟进。工程师于03-09 13:43提报了Rank6 10元奖金包提请。当前节点：6. 奖励审批（待会签负责人康红月点击审批通过或修改等级）。',
+    category: '异常物料',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-15',
+    createdDate: '2026-03-08',
+    receivedDate: '2026-03-09 13:43',
+    assignee: 'BD经理 - 李明',
+    urgencyExplanation: '奖励包在等康红月会签批复，请主管李明率先查验该外来物拦截有无规避大宗良率滑坡风险。',
+    actionSteps: [
+      { id: 'ab1-s6-1', text: '点击核对10元奖励提款工单、风险评定及努力程度', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 6,
+      steps: [
+        { index: 1, name: '发起流程', handler: '马磊' },
+        { index: 2, name: '按照需求检查物料', handler: '马磊' },
+        { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
+        { index: 4, name: '带班按需处理物料', handler: '马磊' },
+        { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10BC1060',
+      processName: 'Mold异常物料',
+      machineNo: 'BMD-17',
+      pkgType: 'BGA',
+      pkgCode: '00A9',
+      substandardType: '外来物',
+      issueNo: '36',
+      discoveredBy: '刘佳',
+      launchTime: '2026-03-08 13:04:09',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260308-Mold异常物料-BMD-17-TJPF10BC1060-异常次品',
+      historyFile: 'c82774503e050603f59b04ce14bdc0f.jpg',
+      reason: '人员抽检时发现一粒外来物',
+      anomalyCategory: '原材料',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '陈鹏飞',
+      teamLeaderActionTime: '2026-03-08 13:07:24',
+      step2: {
+        substandardTypes: ['外来物', 'N/A', 'N/A'],
+        substandardQtys: ['1', 'N/A', 'N/A'],
+        actionDesc: '追加此批100%X-RAY，除1粒外来物其它无次品，联系R班工程师1粒次品已画已拒，已HOLD,此批物料放行'
+      },
+      step3: {
+        engineerOpinion: '放行',
+        actionOpinion: '整批已xray: 共1粒次品，注意保留次品给闫鹏',
+        engineerActionTime: '2026-03-09 10:44:58',
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中'
+      },
+      step4: {
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中',
+        remark: 'N/A',
+        teamLeaderActionTime: '2026-03-09 12:29:52'
+      },
+      step5: {
+        isPublic: '未公示',
+        qualityRiskLevel: '内部,对客户无质量影响',
+        effortLevel: '职能责任内',
+        rewardCalc: 'Rank6_10元',
+        actionTime: '2026-03-09 13:43:27'
+      }
+    }
+  },
+  {
+    id: 'task-abnormal-mold-step7',
+    title: '异常物料 - [样例1] Mold 外来物拦截 (Step 7 申诉待终审定案)',
+    description: '批号: TJPF10BC1060 | 带班马磊已于03-10提交100元(Rank3)申诉请求，主张在制品工艺漏网风险已有效防御，应属于高额专项奖。当前节点：7. 再次审批（等待高管康红月核实、驳回或终审裁决定案）。',
+    category: '异常物料',
+    status: 'pending',
+    priority: 'high',
+    sourceSystem: '异常物料处理系统',
+    dueDate: '2026-03-15',
+    createdDate: '2026-03-08',
+    receivedDate: '2026-03-10 17:33',
+    assignee: '后线工程师 - 王芳',
+    urgencyExplanation: '申诉期最终会签审批由康红月主审（此任务由王芳代管协助物料归档），需查看申诉理由确定方案。',
+    actionSteps: [
+      { id: 'ab1-s7-1', text: '查验马磊提交的申诉佐证、工程师会签支持意见', completed: true },
+      { id: 'ab1-s7-2', text: '在系统中点击提交同意其100元终审定案', completed: false }
+    ],
+    workflow: {
+      systemName: '异常物料处理系统',
+      currentStepIndex: 7,
+      steps: [
+        { index: 1, name: '发起流程', handler: '马磊' },
+        { index: 2, name: '按照需求检查物料', handler: '马磊' },
+        { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
+        { index: 4, name: '带班按需处理物料', handler: '马磊' },
+        { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
+        { index: 6, name: '奖励审批', handler: '康红月' },
+        { index: 7, name: '再次审批奖励', handler: '康红月' }
+      ]
+    },
+    materialAbnormalDetail: {
+      lotNo: 'TJPF10BC1060',
+      processName: 'Mold异常物料',
+      machineNo: 'BMD-17',
+      pkgType: 'BGA',
+      pkgCode: '00A9',
+      substandardType: '外来物',
+      issueNo: '36',
+      discoveredBy: '刘佳',
+      launchTime: '2026-03-08 13:04:09',
+      fiveMOneE: 'Machine(设备)',
+      filePath: '\\\\10.192.144.74\\personal\\Fan Yaocheng\\异常物料处理记录/20260308-Mold异常物料-BMD-17-TJPF10BC1060-异常次品',
+      historyFile: 'c82774503e050603f59b04ce14bdc0f.jpg',
+      reason: '人员抽检时发现一粒外来物',
+      anomalyCategory: '原材料',
+      initialActionDesc: '整批扣留，联系相关工程师',
+      initialActionBy: '陈鹏飞',
+      teamLeaderActionTime: '2026-03-08 13:07:24',
+      step2: {
+        substandardTypes: ['外来物', 'N/A', 'N/A'],
+        substandardQtys: ['1', 'N/A', 'N/A'],
+        actionDesc: '追加此批100%X-RAY，除1粒外来物其它无次品，联系R班工程师1粒次品已画已拒，已HOLD,此批物料放行'
+      },
+      step3: {
+        engineerOpinion: '放行',
+        actionOpinion: '整批已xray: 共1粒次品，注意保留次品给闫鹏',
+        engineerActionTime: '2026-03-09 10:44:58',
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中'
+      },
+      step4: {
+        isKeepSubstandard: '保留',
+        keepInfo: '次品放入相应工程师次品箱中',
+        remark: 'N/A',
+        teamLeaderActionTime: '2026-03-09 12:29:52'
+      },
+      step5: {
+        isPublic: '未公示',
+        qualityRiskLevel: '内部,对客户无质量影响',
+        effortLevel: '职能责任内',
+        rewardCalc: 'Rank6_10元',
+        actionTime: '2026-03-09 13:43:27'
+      },
+      step6: {
+        isModify: '否',
+        auditResult: '通过',
+        auditTime: '2026-03-09 16:59:49',
+        auditReward: 'Rank6_10元'
+      },
+      step6_appeal: {
+        isAppeal: '是',
+        appellant: '马磊',
+        appealTime: '2026-03-10 17:33:13',
+        appealReward: 'Rank3_100元',
+        appealReason: '已与R班工程师沟通具体情况，同意申诉请求'
+      }
+    }
   }
 ];
 
@@ -338,6 +787,13 @@ export const MESSAGE_TEMPLATES = {
     text: `【异常处理系统-Others】厂务二次配管气压报警：检测到B区洁净室动力气压低于标准阈值，需紧急处理并校准站点状态。`,
     sender: `Facility-Others-Robot@fab3.corp.com`,
     system: `异常处理系统-Others`,
+    category: `故障警报`,
+    priority: `high`
+  },
+  abnormal_material_alert: {
+    text: `【异常物料处理系统】检测到 A3 生产线清洗用超纯特种物料被混入异常杂质微粒，带班已紧急发起拦截。请产品工程师立即介入会签，给出专业处理意见！`,
+    sender: `Material-Monitor@fab3.corp.com`,
+    system: `异常物料处理系统`,
     category: `故障警报`,
     priority: `high`
   }
