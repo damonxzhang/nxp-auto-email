@@ -1,10 +1,10 @@
 import { UserProfile, Task } from './types';
 
 export const DEFAULT_PROFILES: UserProfile[] = [
-  { id: 'liming', name: '李明', fullName: 'BD经理 - 李明', role: '晶圆代工量产与大客户投片拓展BD经理', avatarBg: 'bg-emerald-600 text-white', avatarText: 'LM', managerId: '' },
-  { id: 'zhangjing', name: '张静', fullName: '后线工程师 - 张静', role: '廠務工藝保障與化學特氣用料結算工程師', avatarBg: 'bg-indigo-600 text-white', avatarText: 'ZJ', managerId: 'liming' },
-  { id: 'zhaolei', name: '赵磊', fullName: '后线工程师 - 赵磊', role: '高精密機台控制與EAP自動化連線研發工程師', avatarBg: 'bg-amber-500 text-slate-900', avatarText: 'ZL', managerId: 'liming' },
-  { id: 'wangfang', name: '王芳', fullName: '后线工程师 - 王芳', role: '芯片潔淨室安全防火與EHS環保合規檢測工程師', avatarBg: 'bg-rose-500 text-white', avatarText: 'WF', managerId: 'liming' }
+  { id: 'kanghongyue', name: '康红月', fullName: '部门经理 - 康红月', role: '晶圆代工量产主管、多级奖励与异常物料会签审批负责人', avatarBg: 'bg-emerald-600 text-white', avatarText: 'KH', managerId: '' },
+  { id: 'yanpeng', name: '闫鹏', fullName: '后线工程师 - 闫鹏', role: '廠務工藝保障與化學特氣用料結算工程師', avatarBg: 'bg-indigo-600 text-white', avatarText: 'YP', managerId: 'kanghongyue' },
+  { id: 'malei', name: '马磊', fullName: '后线工程师 - 马磊', role: '高精密機台控制與EAP自動化連線研發工程師', avatarBg: 'bg-amber-500 text-slate-900', avatarText: 'ML', managerId: 'kanghongyue' },
+  { id: 'sunzhibin', name: '孙志斌', fullName: '后线工程师 - 孙志斌', role: '芯片潔淨室安全防火與EHS環保合規檢測工程師', avatarBg: 'bg-rose-500 text-white', avatarText: 'SZ', managerId: 'kanghongyue' }
 ];
 
 export const CORPORATE_SYSTEMS = [
@@ -22,14 +22,14 @@ export const DEFAULT_TASKS: Task[] = [
   {
     id: 'task-wf-2',
     title: '洁净操作车间视频调阅与轨迹溯源审批',
-    description: '异常物料丢失调查：需调阅6月9日工艺3组在此区域的物理操作视频。王芳作为安全官需审核该权限申请并签发临时数字凭证。',
+    description: '异常物料丢失调查：需调阅6月9日工艺3组在此区域的物理操作视频。孙志斌作为安全官需审核该权限申请并签发临时数字凭证。',
     category: '安全合规',
     status: 'pending',
     priority: 'low',
     sourceSystem: '查询录像审批流程',
     dueDate: '2026-06-12',
     createdDate: '2026-06-11',
-    assignee: '后线工程师 - 王芳',
+    assignee: '后线工程师 - 孙志斌',
     urgencyExplanation: '常规审计流程。',
     actionSteps: [
        { id: 'wf2-1', text: '核对申请人工作证件及权限等级', completed: true },
@@ -54,7 +54,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '异常处理系统-Others',
     dueDate: '2026-06-13',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '影响晶圆收率，需尽快修正参数。',
     actionSteps: [
       { id: 'zj5-1', text: '对比历史良率曲线寻找波谷节点', completed: true },
@@ -64,7 +64,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '异常处理系统-Others',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '工程师处理', handler: '张静 (后线工程师)' },
+        { index: 1, name: '工程师处理', handler: '闫鹏 (后线工程师)' },
         { index: 2, name: '产线按需进行处理', handler: '指定带班' },
         { index: 3, name: '奖励审批', handler: '康红月' },
         { index: 4, name: '奖励申诉', handler: '指定带班' },
@@ -82,7 +82,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: 'buyoff流程',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '机台停机每小时损失巨大，需尽快完成良率释放。',
     actionSteps: [
       { id: 'zj6-1', text: '核对复产首批测试片(Monitor Wafer)良率参数', completed: true },
@@ -92,9 +92,9 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: 'buyoff流程',
       currentStepIndex: 3,
       steps: [
-        { index: 1, name: '工程师判断buyoff内容合理性', handler: '张静 (后线工程师)' },
+        { index: 1, name: '工程师判断buyoff内容合理性', handler: '闫鹏 (后线工程师)' },
         { index: 2, name: '带班执行buyoff', handler: '指定带班' },
-        { index: 3, name: '工程师判断buyoff结果', handler: '张静 (后线工程师)' },
+        { index: 3, name: '工程师判断buyoff结果', handler: '闫鹏 (后线工程师)' },
         { index: 4, name: '带班按需处理物料', handler: '指定带班' },
         { index: 5, name: '工程师追溯物料数据', handler: '指定产品工程师' }
       ]
@@ -110,7 +110,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '2代分析系统',
     dueDate: '2026-06-14',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 赵磊',
+    assignee: '后线工程师 - 马磊',
     urgencyExplanation: '为后续工艺规格收窄提供数据支撑。',
     actionSteps: [
       { id: 'zl3-1', text: '拉取近 7 天显影后 CD 原始数据', completed: true },
@@ -120,7 +120,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '2代分析系统',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '反馈分析、处理结果', handler: '赵磊 (后线工程师)' },
+        { index: 1, name: '反馈分析、处理结果', handler: '马磊 (后线工程师)' },
         { index: 2, name: '发起人判断结果是否达到预期', handler: '研发发起人' }
       ]
     }
@@ -135,7 +135,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '物料报废',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: 'BD经理 - 李明',
+    assignee: '部门经理 - 康红月',
     urgencyExplanation: '库存库位积压预警，需尽快释放物理空间。',
     actionSteps: [
       { id: 'lm4-1', text: '核实当班主管提交的污染物含量监测报告', completed: true },
@@ -146,7 +146,7 @@ export const DEFAULT_TASKS: Task[] = [
       currentStepIndex: 2,
       steps: [
         { index: 1, name: '当班主管确认', handler: '指定带班 / 发起人' },
-        { index: 2, name: '区域主管确认', handler: '李明 (BD经理)' }
+        { index: 2, name: '区域主管确认', handler: '康红月 (部门经理)' }
       ]
     }
   },
@@ -160,7 +160,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '自由弹夹领用',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '确保库房周转率，避免容器短缺影响后续批次。',
     actionSteps: [
       { id: 'foup1-1', text: '确认传送盒内无残余硅片', completed: true },
@@ -170,7 +170,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '自由弹夹领用',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '归还', handler: '发起人 (张静)' }
+        { index: 1, name: '归还', handler: '发起人 (闫鹏)' }
       ]
     }
   },
@@ -184,7 +184,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '2代分析系统',
     dueDate: '2026-06-13',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '定位精度决定了良率，属于工艺红线。',
     actionSteps: [
       { id: 'zj7-1', text: '上传 KLA 电镜扫描切片数据', completed: true },
@@ -194,7 +194,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '2代分析系统',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '反馈分析、处理结果', handler: '张静 (后线工程师)' },
+        { index: 1, name: '反馈分析、处理结果', handler: '闫鹏 (后线工程师)' },
         { index: 2, name: '发起人判断结果是否达到预期', handler: '后线工程师' }
       ]
     }
@@ -209,7 +209,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '物料报废',
     dueDate: '2026-06-14',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '防止失效物料误入生产线造成重大事故。',
     actionSteps: [
       { id: 'zj8-1', text: '核对冷链监控日志。', completed: true },
@@ -219,8 +219,8 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '物料报废',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '当班主管确认', handler: '张静 (后线工程师)' },
-        { index: 2, name: '区域主管确认', handler: '李明' }
+        { index: 1, name: '当班主管确认', handler: '闫鹏 (后线工程师)' },
+        { index: 2, name: '区域主管确认', handler: '康红月' }
       ]
     }
   },
@@ -234,7 +234,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '借还机申请',
     dueDate: '2026-06-13',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 王芳',
+    assignee: '后线工程师 - 孙志斌',
     urgencyExplanation: '支持研发进度。',
     actionSteps: [
       { id: 'wf3-1', text: '确认量产线当前机台稼动率。', completed: true },
@@ -244,7 +244,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '借还机申请',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '生产工程师审批', handler: '王芳 (后线工程师)' },
+        { index: 1, name: '生产工程师审批', handler: '孙志斌 (后线工程师)' },
         { index: 2, name: '申请人重新申请', handler: '发起人' },
         { index: 3, name: '操作员确认账料已清空', handler: '操作员' },
         { index: 4, name: '归还设备', handler: '发起人' },
@@ -263,7 +263,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '2代分析系统',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 王芳',
+    assignee: '后线工程师 - 孙志斌',
     urgencyExplanation: '预防气流乱序导致的颗粒度(Particle)污染。',
     actionSteps: [
       { id: 'wf4-1', text: '提取厂务监控传感器历史数据', completed: true },
@@ -273,7 +273,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '2代分析系统',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '反馈分析、处理结果', handler: '王芳 (后线工程师)' },
+        { index: 1, name: '反馈分析、处理结果', handler: '孙志斌 (后线工程师)' },
         { index: 2, name: '发起人判断结果是否达到预期', handler: '厂务发起人' }
       ]
     }
@@ -288,7 +288,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '异常处理系统-Others',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: '后线工程师 - 赵磊',
+    assignee: '后线工程师 - 马磊',
     urgencyExplanation: '形变超标将导致整批晶圆报废，需即刻现场标定。',
     actionSteps: [
       { id: 'zl4-1', text: '检查机台二配管气压实时曲线', completed: true },
@@ -298,7 +298,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '异常处理系统-Others',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '反馈分析、处理结果', handler: '赵磊 (后线工程师)' },
+        { index: 1, name: '反馈分析、处理结果', handler: '马磊 (后线工程师)' },
         { index: 2, name: '发起人判断结果', handler: '工艺发起人' }
       ]
     }
@@ -306,14 +306,14 @@ export const DEFAULT_TASKS: Task[] = [
   {
     id: 'task-lm-3',
     title: '2026 Q3 扩产计划 - KLA-Tencor 量测设备借用会签',
-    description: 'BD 部门李明需协调 1 台 KLA 测量设备从研发实验室调拨至量产线，支持新加坡车载芯片项目的良率监控。',
+    description: '经理部门康红月需协调 1 台 KLA 测量设备从研发实验室调拨至量产线，支持新加坡车载芯片项目的良率监控。',
     category: '资产调拨',
     status: 'pending',
     priority: 'medium',
     sourceSystem: '借还机申请',
     dueDate: '2026-06-15',
     createdDate: '2026-06-12',
-    assignee: 'BD经理 - 李明',
+    assignee: '部门经理 - 康红月',
     urgencyExplanation: '扩产计划节点要求，需提前完成设备到位。',
     actionSteps: [
       { id: 'lm3-1', text: '在借还机系统中提交调拨申请单', completed: true },
@@ -323,7 +323,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '借还机申请',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '生产工程师审批', handler: '李明 (BD经理)' },
+        { index: 1, name: '生产工程师审批', handler: '康红月 (部门经理)' },
         { index: 2, name: '申请人重新申请', handler: '发起人' },
         { index: 3, name: '操作员确认账料已清空', handler: '操作员' },
         { index: 4, name: '归还设备', handler: '发起人' },
@@ -343,7 +343,7 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-15',
     createdDate: '2026-03-08',
     receivedDate: '2026-03-08 13:07',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '产品工艺红线风险，急需产品工程师确定处理意见并提交。',
     actionSteps: [
       { id: 'ab1-1', text: '查验物料物理擦伤和表面污点显微镜图像', completed: true },
@@ -437,8 +437,8 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-20',
     createdDate: '2026-03-13',
     receivedDate: '2026-03-13 04:22',
-    assignee: '后线工程师 - 赵磊',
-    urgencyExplanation: '常规安全合规与质量拦截奖励，需由后线工程师赵磊核定发放等级并流转审批。',
+    assignee: '后线工程师 - 马磊',
+    urgencyExplanation: '常规安全合规与质量拦截奖励，需由后线工程师马磊核定发放等级并流转审批。',
     actionSteps: [
       { id: 'ab2-1', text: '核对拦截违规批次和防污染贡献度评分', completed: true },
       { id: 'ab2-2', text: '在线核准奖励包并发起奖金提请', completed: false }
@@ -525,7 +525,7 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-15',
     createdDate: '2026-03-08',
     receivedDate: '2026-03-08 13:04',
-    assignee: '后线工程师 - 张静',
+    assignee: '后线工程师 - 闫鹏',
     urgencyExplanation: '在制品拦截初始流转，带班陈鹏飞、马磊正在机台前加急做100% X-RAY全检，请跟进录单。',
     actionSteps: [
       { id: 'ab1-s1-1', text: '协同带班获取100% X-RAY缺陷胶片并督查录单', completed: false }
@@ -574,7 +574,7 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-20',
     createdDate: '2026-03-13',
     receivedDate: '2026-03-13 04:22',
-    assignee: '后线工程师 - 赵磊',
+    assignee: '后线工程师 - 马磊',
     urgencyExplanation: '机械散乱可能产生暗裂，请核对VM结果后，批开放行决定或追查硅片参数。',
     actionSteps: [
       { id: 'ab2-s3-1', text: '对比此批号前序工艺裂纹及良率数据', completed: true },
@@ -629,8 +629,8 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-15',
     createdDate: '2026-03-08',
     receivedDate: '2026-03-09 13:43',
-    assignee: 'BD经理 - 李明',
-    urgencyExplanation: '奖励包在等康红月会签批复，请主管李明率先查验该外来物拦截有无规避大宗良率滑坡风险。',
+    assignee: '部门经理 - 康红月',
+    urgencyExplanation: '奖励包在等康红月会签批复，请主管康红月率先查验该外来物拦截有无规避大宗良率滑坡风险。',
     actionSteps: [
       { id: 'ab1-s6-1', text: '点击核对10元奖励提款工单、风险评定及努力程度', completed: false }
     ],
@@ -703,8 +703,8 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-15',
     createdDate: '2026-03-08',
     receivedDate: '2026-03-10 17:33',
-    assignee: '后线工程师 - 王芳',
-    urgencyExplanation: '申诉期最终会签审批由康红月主审（此任务由王芳代管协助物料归档），需查看申诉理由确定方案。',
+    assignee: '后线工程师 - 孙志斌',
+    urgencyExplanation: '申诉期最终会签审批由康红月主审（此任务由孙志斌代管协助物料归档），需查看申诉理由确定方案。',
     actionSteps: [
       { id: 'ab1-s7-1', text: '查验马磊提交的申诉佐证、工程师会签支持意见', completed: true },
       { id: 'ab1-s7-2', text: '在系统中点击提交同意其100元终审定案', completed: false }

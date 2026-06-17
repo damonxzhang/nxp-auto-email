@@ -57,10 +57,10 @@ export default function App() {
   const [profiles, setProfiles] = useState<UserProfile[]>(DEFAULT_PROFILES);
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEFAULT_PROFILES[0]);
   const [userStatusMap, setUserStatusMap] = useState<Record<string, { isVacation: boolean }>>({
-    liming: { isVacation: false },
-    zhangjing: { isVacation: false },
-    zhaolei: { isVacation: false },
-    wangfang: { isVacation: false }
+    kanghongyue: { isVacation: false },
+    yanpeng: { isVacation: false },
+    malei: { isVacation: false },
+    sunzhibin: { isVacation: false }
   });
 
   const [corporateSystems, setCorporateSystems] = useState(CORPORATE_SYSTEMS);
