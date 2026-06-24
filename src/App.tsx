@@ -261,7 +261,6 @@ export default function App() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setActiveSystemMenu(null);
-                    handleTaskClick(t);
                   }}
                   className="group text-[10.5px] leading-relaxed p-1.5 bg-slate-850 rounded border border-slate-800 hover:border-indigo-500 hover:bg-slate-800 cursor-pointer transition"
                 >
@@ -274,7 +273,17 @@ export default function App() {
               ))}
               {subTasks.length === 0 && <div className="text-[10px] text-slate-500 italic py-2 text-center">暂无卡点事项</div>}
            </div>
-           <div className="mt-2 pt-1.5 border-t border-slate-800 text-[8px] text-slate-500 italic">
+           <button
+             onClick={(e) => {
+               e.stopPropagation();
+               setActiveSystemMenu(null);
+               setRedirectHint({ show: true, taskTitle: `前往 ${sys.name} 系统处理待办事项`, systemName: sys.name });
+             }}
+             className="mt-2 w-full py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black rounded-lg transition cursor-pointer"
+           >
+             跳转至该系统
+           </button>
+           <div className="mt-1.5 pt-1.5 border-t border-slate-800 text-[8px] text-slate-500 italic">
              💡 点击事项将跳转至对应系统处理页面
            </div>
         </div>
