@@ -94,11 +94,16 @@ export default function App() {
   const [activeSystemMenu, setActiveSystemMenu] = useState<{ userId: string; systemId: string } | null>(null);
   
   const [urgentRecipient, setUrgentRecipient] = useState<UserProfile | null>(null);
+  const [redirectHint, setRedirectHint] = useState<{ show: boolean; taskTitle: string; systemName: string }>({ show: false, taskTitle: '', systemName: '' });
 
   const triggerToast = (message: string) => {
     const id = Date.now();
     setToast({ message, id });
     setTimeout(() => setToast(prev => prev?.id === id ? null : prev), 5000);
+  };
+
+  const handleTaskClick = (task: Task) => {
+    setRedirectHint({ show: true, taskTitle: task.title, systemName: task.sourceSystem });
   };
 
   const subordinatesList = useMemo(() => {
@@ -255,15 +260,8 @@ export default function App() {
                   key={t.id} 
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedSubordinateFilterId(sub.id);
-                    setFilterSystem(sys.id);
-                    setSelectedTask(t);
                     setActiveSystemMenu(null);
-                    triggerToast(`🔎 已穿透定位：${sub.name} 在 ${sys.id} 的任务详情`);
-                    
-                    setTimeout(() => {
-                      document.getElementById('central-todo-table')?.scrollIntoView({ behavior: 'smooth' });
-                    }, 300);
+                    handleTaskClick(t);
                   }}
                   className="group text-[10.5px] leading-relaxed p-1.5 bg-slate-850 rounded border border-slate-800 hover:border-indigo-500 hover:bg-slate-800 cursor-pointer transition"
                 >
@@ -277,7 +275,7 @@ export default function App() {
               {subTasks.length === 0 && <div className="text-[10px] text-slate-500 italic py-2 text-center">暂无卡点事项</div>}
            </div>
            <div className="mt-2 pt-1.5 border-t border-slate-800 text-[8px] text-slate-500 italic">
-             💡 点击事项可直接查看详情并过滤大表
+             💡 点击事项将跳转至对应系统处理页面
            </div>
         </div>
       </>
@@ -367,7 +365,6 @@ export default function App() {
               setActiveSystemMenu={setActiveSystemMenu}
               renderSystemPopover={renderSystemPopover}
               toggleUserVacation={toggleUserVacation}
-              getIconComponent={getIconComponent}
               triggerToast={triggerToast}
               onUrgentReminder={setUrgentRecipient}
             />
@@ -420,8 +417,7 @@ export default function App() {
 
               <TaskTable 
                 tasks={filteredTasks}
-                onSelectTask={setSelectedTask}
-                getIconComponent={getIconComponent}
+                onSelectTask={handleTaskClick}
                 corporateSystems={corporateSystems}
               />
             </div>
@@ -449,6 +445,49 @@ export default function App() {
             sender={profiles.find(p => p.id === urgentRecipient.managerId) || currentUser}
             tasks={tasks}
           />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {redirectHint.show && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+            onClick={() => setRedirectHint({ show: false, taskTitle: '', systemName: '' })}
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 max-w-md w-full mx-4 text-left"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-2.5 bg-indigo-50 rounded-xl shrink-0">
+                  <ArrowRight className="w-5 h-5 text-indigo-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-black text-slate-800 mb-2">即将跳转至外部系统</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    该任务将在 <span className="font-extrabold text-indigo-600">{redirectHint.systemName}</span> 的原系统处理页面中打开，请在对应系统中完成后续操作。
+                  </p>
+                  <div className="mt-3 bg-slate-50 rounded-lg p-2.5 border border-slate-100">
+                    <p className="text-[11px] font-bold text-slate-700 line-clamp-2">{redirectHint.taskTitle}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-5 flex justify-end">
+                <button 
+                  onClick={() => setRedirectHint({ show: false, taskTitle: '', systemName: '' })}
+                  className="px-5 py-2 bg-slate-900 text-white text-xs font-black rounded-xl hover:bg-slate-800 transition cursor-pointer"
+                >
+                  我知道了
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 

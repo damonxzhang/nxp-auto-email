@@ -1,6 +1,17 @@
 import React from 'react';
-import { Users, User, ShieldCheck, Mail, Workflow, Target } from 'lucide-react';
+import { Users, ShieldCheck, Mail, Workflow } from 'lucide-react';
 import { UserProfile, Task } from '../types';
+
+const SYSTEM_SHORT_NAMES: Record<string, string> = {
+  '异常物料处理系统': '异常物料',
+  '异常处理系统-Others': 'Others',
+  '查询录像审批流程': '录像审批',
+  '借还机申请': '借还机',
+  'buyoff流程': 'Buyoff',
+  '2代分析系统': '2代分析',
+  '物料报废': '物料报废',
+  '自由弹夹领用': '弹夹领用',
+};
 
 export interface DashboardProps {
   currentUser: UserProfile;
@@ -27,7 +38,6 @@ export interface DashboardProps {
   setActiveSystemMenu: (menu: any) => void;
   renderSystemPopover: (sub: UserProfile, sys: any, count: number) => React.ReactNode;
   toggleUserVacation: (userId: string) => void;
-  getIconComponent: (icon: string) => any;
   triggerToast: (msg: string) => void;
   onUrgentReminder: (user: UserProfile) => void;
 }
@@ -58,10 +68,20 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     setActiveSystemMenu,
     renderSystemPopover,
     toggleUserVacation,
-    getIconComponent,
     triggerToast,
     onUrgentReminder
   } = props;
+
+  const chartData = React.useMemo(() => {
+    const myTasks = tasks.filter(t => t.assignee === currentUser.fullName);
+    const total = myTasks.length;
+    const completed = myTasks.filter(t => t.status === 'completed').length;
+    const pending = total - completed;
+    const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+    const r = 60;
+    const circ = 2 * Math.PI * r;
+    return { total, completed, pending, pct, radius: r, circumference: circ };
+  }, [tasks, currentUser.fullName]);
 
   return (
     <section className="max-w-[1500px] mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6 animate-fadeIn pb-16">
@@ -116,49 +136,46 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
 
       {dashboardTab === 'analytics' && (
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 animate-fadeIn">
+          {/* 完成率饼图 */}
           <div className="xl:col-span-4 bg-white border border-slate-200 p-6 rounded-2xl text-left">
-            <div className="flex items-center justify-between border-b pb-3 mb-4">
-              <div className="flex items-center gap-3">
-                <h4 className="text-xs font-black text-slate-800 uppercase tracking-wider"> 我的待办分布 (MY DISTRIBUTION)</h4>
-                <button 
-                  onClick={() => {
-                    setSelectedSubordinateFilterId(null);
-                    triggerToast('已切换至：我的待办大盘');
-                    setTimeout(() => {
-                        document.getElementById('central-todo-table')?.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                  }}
-                  className="px-2 py-0.5 bg-indigo-50 border border-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white rounded text-[9px] font-black transition-all cursor-pointer flex items-center gap-1"
-                >
-                  <Target className="w-2.5 h-2.5" />
-                  <span>穿透大表</span>
-                </button>
-              </div>
-              <span className="text-[10px] font-mono font-bold text-indigo-600">{profilesPendingStats[currentUser.id]?.total || 0} ITEMS</span>
-            </div>
-            <div className="space-y-4">
-               {corporateSystems.map(sys => {
-                 const count = profilesPendingStats[currentUser.id]?.bySystem[sys.id] || 0;
-                 if (hideEmptySystems && count === 0) return null;
-                 const percentage = Math.round((count / (profilesPendingStats[currentUser.id]?.total || 1)) * 100);
-                 return (
-                   <div key={sys.id} className="space-y-1">
-                     <div className="flex justify-between text-[11px] font-bold">
-                       <span className="text-slate-600">{sys.name}</span>
-                       <span className="text-slate-800">{count} 项 ({percentage}%)</span>
-                     </div>
-                     <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                       <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${percentage}%` }}></div>
-                     </div>
-                   </div>
-                 );
-               })}
-               {/* 移除按钮区域 */}
-            </div>
+                  <div className="flex items-center justify-between border-b pb-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <h4 className="text-xs font-black text-slate-800 uppercase tracking-wider">任务完成率 (COMPLETION)</h4>
+                    </div>
+                    <span className="text-[10px] font-mono font-bold text-indigo-600">{chartData.total} ITEMS</span>
+                  </div>
+                  <div className="flex flex-col items-center py-4">
+                    <div className="relative w-40 h-40">
+                      <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">
+                        {/* 背景圆环 */}
+                        <circle cx="70" cy="70" r={chartData.radius} fill="none" stroke="#f1f5f9" strokeWidth="12" />
+                        {/* 进度圆环 */}
+                        <circle cx="70" cy="70" r={chartData.radius} fill="none" stroke="#6366f1" strokeWidth="12"
+                          strokeDasharray={chartData.circumference} strokeDashoffset={chartData.circumference * (1 - chartData.pct / 100)}
+                          strokeLinecap="round" className="transition-all duration-700" />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-3xl font-black text-slate-800">{chartData.pct}%</span>
+                        <span className="text-[10px] text-slate-400 font-bold mt-0.5">已完成</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-6 mt-4 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                        <span className="font-bold text-slate-700">已完成 {chartData.completed}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
+                        <span className="font-bold text-slate-500">待处理 {chartData.pending}</span>
+                      </div>
+                    </div>
+                  </div>
           </div>
 
           <div className="xl:col-span-8 bg-white border border-slate-200 p-6 rounded-2xl text-left">
-             <div className="flex justify-between items-center border-b pb-3 mb-4">
+            {/* 团队待办监控 */}
+            <div>
+              <div className="flex justify-between items-center mb-4">
                 <h4 className="text-xs font-black text-slate-800 uppercase tracking-wider">团队待办监控 (TEAM MONITOR)</h4>
                 <div className="flex gap-2">
                    <input 
@@ -171,24 +188,25 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
              </div>
              
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredSubordinatesList
+                {[currentUser, ...filteredSubordinatesList]
                   .filter(sub => (profilesPendingStats[sub.id]?.total || 0) > 0)
                   .map(sub => {
                    const stats = profilesPendingStats[sub.id] || { total: 0 };
                    const isSelected = selectedSubordinateFilterId === sub.id;
+                   const isMe = sub.id === currentUser.id;
                    return (
                      <div 
                        key={sub.id}
                        onClick={() => setSelectedSubordinateFilterId(isSelected ? null : sub.id)}
                        className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
-                         isSelected ? 'border-indigo-500 bg-indigo-50/30 shadow-subtle' : 'border-slate-100 hover:border-slate-300'
+                         isSelected ? 'border-indigo-500 bg-indigo-50/30 shadow-subtle' : isMe ? 'border-indigo-200 bg-indigo-50/20' : 'border-slate-100 hover:border-slate-300'
                        }`}
                      >
                        <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2.5">
                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black shadow-sm ${sub.avatarBg}`}>{sub.avatarText}</div>
                              <div className="text-left leading-tight">
-                               <div className="text-sm font-black text-slate-800">{sub.name}</div>
+                               <div className="text-sm font-black text-slate-800 flex items-center gap-1.5">{sub.name}{isMe && <span className="text-[9px] text-indigo-500 font-black">(我)</span>}</div>
                                <div className="text-[10px] text-slate-400 font-medium">{sub.role.split(' - ')[0]}</div>
                              </div>
                           </div>
@@ -202,7 +220,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                        <div className="grid grid-cols-4 gap-2 mb-4">
                           {corporateSystems.map(sys => {
                              const count = stats.bySystem?.[sys.id] || 0;
-                             const IconComp = getIconComponent(sys.icon);
+                             const shortName = SYSTEM_SHORT_NAMES[sys.id] || sys.id;
                              const isMenuOpen = activeSystemMenu?.userId === sub.id && activeSystemMenu?.systemId === sys.id;
                              
                              if (subHideEmptySystems && count === 0) return null;
@@ -214,7 +232,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                                      e.stopPropagation();
                                      setActiveSystemMenu(isMenuOpen ? null : { userId: sub.id, systemId: sys.id });
                                    }}
-                                   className={`w-full flex flex-col items-center gap-1.5 p-2 rounded-xl border transition-all group ${
+                                   className={`w-full flex flex-col items-center gap-1 p-2 rounded-xl border transition-all group ${
                                      count > 0 
                                        ? isMenuOpen 
                                          ? 'bg-slate-900 border-slate-900 text-white shadow-lg scale-105' 
@@ -222,7 +240,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                                        : 'bg-slate-50/50 border-transparent text-slate-300 opacity-40 grayscale pointer-events-none'
                                    }`}
                                  >
-                                   <IconComp className={`w-4 h-4 transition-transform ${count > 0 && !isMenuOpen ? 'group-hover:scale-110' : ''}`} />
+                                   <span className="text-[9px] font-black leading-tight text-center px-0.5">{shortName}</span>
                                    <span className={`text-[10px] font-black font-mono transition-colors ${count > 0 && !isMenuOpen ? (sys.theme === 'rose' || sys.theme === 'amber' ? 'text-rose-600' : 'text-slate-900') : ''}`}>
                                      {count}
                                    </span>
@@ -233,6 +251,7 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                               );
                            })}
                         </div>
+                        {!isMe && (
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
@@ -242,11 +261,13 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
                         >
                           一键督办此人
                         </button>
+                        )}
                       </div>
                     );
                 })}
              </div>
           </div>
+        </div>
         </div>
       )}
 

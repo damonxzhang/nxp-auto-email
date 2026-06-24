@@ -1,29 +1,30 @@
 import React from 'react';
 import { 
-  AlertTriangle, 
-  Search, 
-  ExternalLink, 
-  Activity, 
-  Clock, 
-  Filter, 
   ChevronRight, 
-  ListRestart,
-  CreditCard,
-  Target
+  ListRestart
 } from 'lucide-react';
 import { Task, Priority } from '../types';
 
 interface TaskTableProps {
   tasks: Task[];
   onSelectTask: (task: Task) => void;
-  getIconComponent: (icon: string) => any;
   corporateSystems: any[];
 }
+
+const SYSTEM_SHORT_NAMES: Record<string, string> = {
+  '异常物料处理系统': '异常物料',
+  '异常处理系统-Others': 'Others',
+  '查询录像审批流程': '录像审批',
+  '借还机申请': '借还机',
+  'buyoff流程': 'Buyoff',
+  '2代分析系统': '2代分析',
+  '物料报废': '物料报废',
+  '自由弹夹领用': '弹夹领用',
+};
 
 export const TaskTable: React.FC<TaskTableProps> = ({ 
   tasks, 
   onSelectTask, 
-  getIconComponent,
   corporateSystems
 }) => {
   if (tasks.length === 0) {
@@ -49,6 +50,7 @@ export const TaskTable: React.FC<TaskTableProps> = ({
               <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest min-w-[200px]">💼 工制与业务描述</th>
               <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">🔌 源系统</th>
               <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">🏷️ 分类</th>
+              <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">🕐 接收时间</th>
               <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">⏱️ 时限</th>
               <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">⚡ 研判</th>
               <th className="px-5 py-4 w-12"></th>
@@ -57,7 +59,7 @@ export const TaskTable: React.FC<TaskTableProps> = ({
           <tbody className="divide-y divide-slate-50">
             {tasks.map((task) => {
               const sys = corporateSystems.find(s => s.id === task.sourceSystem) || corporateSystems[0];
-              const IconComp = getIconComponent(sys.icon);
+              const shortName = SYSTEM_SHORT_NAMES[task.sourceSystem] || task.sourceSystem;
               const isHigh = task.priority === 'high';
               const isCompleted = task.status === 'completed';
 
@@ -71,8 +73,8 @@ export const TaskTable: React.FC<TaskTableProps> = ({
                 >
                   <td className="px-6 py-5">
                     <div className="flex items-start gap-3">
-                      <div className={`mt-0.5 p-2 rounded-lg shrink-0 ${isHigh ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500'}`}>
-                        {isHigh ? <AlertTriangle className="w-4 h-4" /> : <Activity className="w-4 h-4" />}
+                      <div className={`mt-0.5 px-2 py-1 rounded-lg shrink-0 text-[9px] font-black tracking-tight whitespace-nowrap ${isHigh ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500'}`}>
+                        {shortName}
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
@@ -133,9 +135,9 @@ export const TaskTable: React.FC<TaskTableProps> = ({
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-2">
-                      <div className={`w-6 h-6 rounded flex items-center justify-center ${isCompleted ? 'bg-slate-100 text-slate-400' : 'bg-indigo-50 text-indigo-500 shadow-3xs shadow-indigo-100'}`}>
-                        <IconComp className="w-3.5 h-3.5" />
-                      </div>
+                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded whitespace-nowrap ${isCompleted ? 'bg-slate-100 text-slate-400' : 'bg-indigo-50 text-indigo-600 border border-indigo-100'}`}>
+                        {shortName}
+                      </span>
                       <span className="text-[11px] font-extrabold text-slate-600 whitespace-nowrap">{task.sourceSystem}</span>
                     </div>
                   </td>
@@ -143,6 +145,16 @@ export const TaskTable: React.FC<TaskTableProps> = ({
                     <span className="text-[11px] font-black text-slate-500 px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-lg whitespace-nowrap">
                       {task.category}
                     </span>
+                  </td>
+                  <td className="px-6 py-5 text-center whitespace-nowrap">
+                    {task.receivedDate ? (
+                      <div className="inline-flex flex-col items-center">
+                        <span className="text-[11px] font-mono font-bold text-slate-700">{task.receivedDate.split(' ')[1]}</span>
+                        <span className="text-[9px] text-slate-400 font-bold tracking-tight">{task.receivedDate.split(' ')[0].replace('2026-', '')}</span>
+                      </div>
+                    ) : (
+                      <span className="text-[11px] text-slate-300 font-mono">—</span>
+                    )}
                   </td>
                   <td className="px-6 py-5 text-center">
                     <div className="inline-flex flex-col items-center">
