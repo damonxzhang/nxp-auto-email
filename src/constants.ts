@@ -1,7 +1,7 @@
 import { UserProfile, Task } from './types';
 
 export const DEFAULT_PROFILES: UserProfile[] = [
-  { id: 'kanghongyue', name: '康红月', fullName: '部门经理 - 康红月', role: '晶圆代工量产主管、多级奖励与异常物料会签审批负责人', avatarBg: 'bg-emerald-600 text-white', avatarText: 'KH', managerId: '' },
+  { id: 'kanghongyue', name: '沈勃', fullName: '部门经理 - 沈勃', role: '晶圆代工量产主管、多级奖励与异常物料会签审批负责人', avatarBg: 'bg-emerald-600 text-white', avatarText: 'KH', managerId: '' },
   { id: 'yanpeng', name: '闫鹏', fullName: '后线工程师 - 闫鹏', role: '廠務工藝保障與化學特氣用料結算工程師', avatarBg: 'bg-indigo-600 text-white', avatarText: 'YP', managerId: 'kanghongyue' },
   { id: 'malei', name: '马磊', fullName: '后线工程师 - 马磊', role: '高精密機台控制與EAP自動化連線研發工程師', avatarBg: 'bg-amber-500 text-slate-900', avatarText: 'ML', managerId: 'kanghongyue' },
   { id: 'sunzhibin', name: '孙志斌', fullName: '后线工程师 - 孙志斌', role: '芯片潔淨室安全防火與EHS環保合規檢測工程師', avatarBg: 'bg-rose-500 text-white', avatarText: 'SZ', managerId: 'kanghongyue' }
@@ -66,9 +66,9 @@ export const DEFAULT_TASKS: Task[] = [
       steps: [
         { index: 1, name: '工程师处理', handler: '闫鹏 (后线工程师)' },
         { index: 2, name: '产线按需进行处理', handler: '指定带班' },
-        { index: 3, name: '奖励审批', handler: '康红月' },
+        { index: 3, name: '奖励审批', handler: '沈勃' },
         { index: 4, name: '奖励申诉', handler: '指定带班' },
-        { index: 5, name: '再次审批奖励', handler: '康红月' }
+        { index: 5, name: '再次审批奖励', handler: '沈勃' }
       ]
     }
   },
@@ -135,7 +135,7 @@ export const DEFAULT_TASKS: Task[] = [
     sourceSystem: '物料报废',
     dueDate: '2026-06-12',
     createdDate: '2026-06-12',
-    assignee: '部门经理 - 康红月',
+    assignee: '部门经理 - 沈勃',
     urgencyExplanation: '库存库位积压预警，需尽快释放物理空间。',
     actionSteps: [
       { id: 'lm4-1', text: '核实当班主管提交的污染物含量监测报告', completed: true },
@@ -146,7 +146,7 @@ export const DEFAULT_TASKS: Task[] = [
       currentStepIndex: 2,
       steps: [
         { index: 1, name: '当班主管确认', handler: '指定带班 / 发起人' },
-        { index: 2, name: '区域主管确认', handler: '康红月 (部门经理)' }
+        { index: 2, name: '区域主管确认', handler: '沈勃 (部门经理)' }
       ]
     }
   },
@@ -220,7 +220,7 @@ export const DEFAULT_TASKS: Task[] = [
       currentStepIndex: 1,
       steps: [
         { index: 1, name: '当班主管确认', handler: '闫鹏 (后线工程师)' },
-        { index: 2, name: '区域主管确认', handler: '康红月' }
+        { index: 2, name: '区域主管确认', handler: '沈勃' }
       ]
     }
   },
@@ -306,14 +306,14 @@ export const DEFAULT_TASKS: Task[] = [
   {
     id: 'task-lm-3',
     title: '2026 Q3 扩产计划 - KLA-Tencor 量测设备借用会签',
-    description: '经理部门康红月需协调 1 台 KLA 测量设备从研发实验室调拨至量产线，支持新加坡车载芯片项目的良率监控。',
+    description: '经理部门沈勃需协调 1 台 KLA 测量设备从研发实验室调拨至量产线，支持新加坡车载芯片项目的良率监控。',
     category: '资产调拨',
     status: 'pending',
     priority: 'medium',
     sourceSystem: '借还机申请',
     dueDate: '2026-06-15',
     createdDate: '2026-06-12',
-    assignee: '部门经理 - 康红月',
+    assignee: '部门经理 - 沈勃',
     urgencyExplanation: '扩产计划节点要求，需提前完成设备到位。',
     actionSteps: [
       { id: 'lm3-1', text: '在借还机系统中提交调拨申请单', completed: true },
@@ -323,7 +323,7 @@ export const DEFAULT_TASKS: Task[] = [
       systemName: '借还机申请',
       currentStepIndex: 1,
       steps: [
-        { index: 1, name: '生产工程师审批', handler: '康红月 (部门经理)' },
+        { index: 1, name: '生产工程师审批', handler: '沈勃 (部门经理)' },
         { index: 2, name: '申请人重新申请', handler: '发起人' },
         { index: 3, name: '操作员确认账料已清空', handler: '操作员' },
         { index: 4, name: '归还设备', handler: '发起人' },
@@ -358,8 +358,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
         { index: 4, name: '带班按需处理物料', handler: '马磊' },
         { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {
@@ -452,8 +452,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '赵建国' },
         { index: 4, name: '带班按需处理物料', handler: '孙志斌' },
         { index: 5, name: '工程师发放奖励', handler: '赵建国' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {
@@ -539,8 +539,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
         { index: 4, name: '带班按需处理物料', handler: '马磊' },
         { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {
@@ -589,8 +589,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '赵建国' },
         { index: 4, name: '带班按需处理物料', handler: '孙志斌' },
         { index: 5, name: '工程师发放奖励', handler: '赵建国' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {
@@ -621,7 +621,7 @@ export const DEFAULT_TASKS: Task[] = [
   {
     id: 'task-abnormal-mold-step6',
     title: '异常物料 - [样例1] Mold 外来物拦截 (Step 6 待负责人奖励审批)',
-    description: '批号: TJPF10BC1060 | 工程师闫鹏已下达处理意见及后续带班跟进。工程师于03-09 13:43提报了Rank6 10元奖金包提请。当前节点：6. 奖励审批（待会签负责人康红月点击审批通过或修改等级）。',
+    description: '批号: TJPF10BC1060 | 工程师闫鹏已下达处理意见及后续带班跟进。工程师于03-09 13:43提报了Rank6 10元奖金包提请。当前节点：6. 奖励审批（待会签负责人沈勃点击审批通过或修改等级）。',
     category: '异常物料',
     status: 'pending',
     priority: 'high',
@@ -629,8 +629,8 @@ export const DEFAULT_TASKS: Task[] = [
     dueDate: '2026-03-15',
     createdDate: '2026-03-08',
     receivedDate: '2026-03-09 13:43',
-    assignee: '部门经理 - 康红月',
-    urgencyExplanation: '奖励包在等康红月会签批复，请主管康红月率先查验该外来物拦截有无规避大宗良率滑坡风险。',
+    assignee: '部门经理 - 沈勃',
+    urgencyExplanation: '奖励包在等沈勃会签批复，请主管沈勃率先查验该外来物拦截有无规避大宗良率滑坡风险。',
     actionSteps: [
       { id: 'ab1-s6-1', text: '点击核对10元奖励提款工单、风险评定及努力程度', completed: false }
     ],
@@ -643,8 +643,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
         { index: 4, name: '带班按需处理物料', handler: '马磊' },
         { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {
@@ -695,7 +695,7 @@ export const DEFAULT_TASKS: Task[] = [
   {
     id: 'task-abnormal-mold-step7',
     title: '异常物料 - [样例1] Mold 外来物拦截 (Step 7 申诉待终审定案)',
-    description: '批号: TJPF10BC1060 | 带班马磊已于03-10提交100元(Rank3)申诉请求，主张在制品工艺漏网风险已有效防御，应属于高额专项奖。当前节点：7. 再次审批（等待高管康红月核实、驳回或终审裁决定案）。',
+    description: '批号: TJPF10BC1060 | 带班马磊已于03-10提交100元(Rank3)申诉请求，主张在制品工艺漏网风险已有效防御，应属于高额专项奖。当前节点：7. 再次审批（等待高管沈勃核实、驳回或终审裁决定案）。',
     category: '异常物料',
     status: 'pending',
     priority: 'high',
@@ -704,7 +704,7 @@ export const DEFAULT_TASKS: Task[] = [
     createdDate: '2026-03-08',
     receivedDate: '2026-03-10 17:33',
     assignee: '后线工程师 - 孙志斌',
-    urgencyExplanation: '申诉期最终会签审批由康红月主审（此任务由孙志斌代管协助物料归档），需查看申诉理由确定方案。',
+    urgencyExplanation: '申诉期最终会签审批由沈勃主审（此任务由孙志斌代管协助物料归档），需查看申诉理由确定方案。',
     actionSteps: [
       { id: 'ab1-s7-1', text: '查验马磊提交的申诉佐证、工程师会签支持意见', completed: true },
       { id: 'ab1-s7-2', text: '在系统中点击提交同意其100元终审定案', completed: false }
@@ -718,8 +718,8 @@ export const DEFAULT_TASKS: Task[] = [
         { index: 3, name: '工程师给出处理意见', handler: '闫鹏' },
         { index: 4, name: '带班按需处理物料', handler: '马磊' },
         { index: 5, name: '工程师发放奖励', handler: '闫鹏' },
-        { index: 6, name: '奖励审批', handler: '康红月' },
-        { index: 7, name: '再次审批奖励', handler: '康红月' }
+        { index: 6, name: '奖励审批', handler: '沈勃' },
+        { index: 7, name: '再次审批奖励', handler: '沈勃' }
       ]
     },
     materialAbnormalDetail: {

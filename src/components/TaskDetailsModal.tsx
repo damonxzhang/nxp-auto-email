@@ -278,7 +278,7 @@ export const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
         {detail.step6 && (
           <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-2 text-xs shadow-2xs text-left">
             <div className="flex justify-between items-center border-b border-slate-100 pb-1.5">
-              <span className="font-black text-slate-800 text-[11px]">6. 负责人奖励会签审批 (康红月)</span>
+              <span className="font-black text-slate-800 text-[11px]">6. 负责人奖励会签审批 (沈勃)</span>
               <span className="text-slate-500 text-[10px] font-mono">核准时间: {detail.step6.auditTime}</span>
             </div>
             <div className="grid grid-cols-2 gap-2 text-[11px] mt-1">
